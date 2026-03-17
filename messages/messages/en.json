@@ -1,0 +1,72 @@
+{
+  "nav": {
+    "projects": "Projects",
+    "skills": "Skills",
+    "about": "About",
+    "contact": "Contact",
+    "resume": "Resume ↓"
+  },
+  "hero": {
+    "whoami": "Eddy Mouity",
+    "location": "Seoul, South Korea",
+    "role": "Backend Engineer — Go · TypeScript",
+    "focus": "Distributed systems · Protocol implementations · CLI tooling",
+    "status": "Open to backend engineering roles · Seoul & remote",
+    "cta_contact": "get in touch",
+    "cta_projects": "view projects ↓"
+  },
+  "sections": {
+    "projects": "Projects",
+    "skills": "Skills",
+    "about": "About",
+    "others": "Other projects",
+    "hide_others": "Hide other projects",
+    "timeline": "Timeline"
+  },
+  "about": {
+    "eyebrow": "About",
+    "title": "Self-taught backend engineer\nbased in Seoul, South Korea.",
+    "p1": "I got into backend engineering by building things I didn't fully understand yet — DNS resolvers, programming language interpreters, distributed caches. That approach stuck. Most of what I know came from reading source code, RFCs, and breaking things until they worked.",
+    "p2": "I care about the layer underneath the framework — how data moves, where it lives, what happens when things fail. I'm most comfortable in Go and TypeScript, and I tend to reach for the simplest solution that actually handles the hard cases.",
+    "p3": "I'm currently looking for backend engineering roles in Seoul and internationally. If something on this site caught your attention, I'd like to hear from you.",
+    "cta_contact": "Get in touch",
+    "cta_resume": "Download Resume ↓",
+    "cta_github": "GitHub ↗"
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Get in touch",
+    "subtitle": "Whether it's a job opportunity, a project, or just a question about something you read here — I'll get back to you.",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send message",
+    "sending": "Sending...",
+    "success": "✓ Message sent. I'll get back to you soon.",
+    "error": "Something went wrong. Please try again."
+  },
+  "footer": {
+    "tagline": "Backend Engineer · Seoul, South Korea"
+  },
+  "project": {
+    "problem": "Problem",
+    "prior_art": "Prior Art",
+    "design_decisions": "Design Decisions",
+    "architecture": "Architecture",
+    "reflection": "Reflection",
+    "coming_soon": "// coming soon",
+    "complete": "● Complete",
+    "wip": "◌ In Progress",
+    "back": "Home",
+    "stack": "Stack",
+    "repo": "Repo",
+    "status": "Status",
+    "concepts": "Concepts"
+  },
+  "not_found": {
+    "title": "Page not found",
+    "subtitle": "This route doesn't exist. Head back home or check the URL.",
+    "back_home": "Back home",
+    "contact": "Contact me →"
+  }
+}
