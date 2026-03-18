@@ -106,7 +106,7 @@ export default function Home() {
                         <img
                             src="/photo/KEM.jpg"
                             alt="BornToShine"
-                            style={{ width: '250px', height: '250px', borderRadius: '60%' }}
+                            style={{ width: '270px', height: '270px', borderRadius: '60%' }}
                             className="rounded-full object-cover border-2 border-cyan-500/30"
                         />
                     </div>
