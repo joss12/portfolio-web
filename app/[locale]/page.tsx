@@ -104,7 +104,7 @@ export default function Home() {
 
                     <div className="flex justify-center sm:block shrink-0">
                         <img
-                            src="/photo/KEM.jpg"
+                            src="/photo/resume.jpg"
                             alt="BornToShine"
                             style={{ width: '300px', height: '300px', borderRadius: '60%' }}
                             className="rounded-full object-cover border-2 border-cyan-500/30"
