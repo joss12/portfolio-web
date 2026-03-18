@@ -106,7 +106,7 @@ export default function Home() {
                         <img
                             src="/photo/resume.jpg"
                             alt="BornToShine"
-                            style={{ width: '144px', height: '144px' }}
+                            style={{ width: '180px', height: '180px' }}
                             className="rounded-full object-cover border-2 border-cyan-500/30"
                         />
                     </div>
