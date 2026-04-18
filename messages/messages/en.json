@@ -9,9 +9,9 @@
   "hero": {
     "whoami": "Eddy Mouity",
     "location": "Seoul, South Korea",
-    "role": "Backend Engineer — Go · TypeScript",
-    "focus": "Distributed systems · Protocol implementations · CLI tooling",
-    "status": "Open to backend engineering roles · Seoul & remote",
+    "role": "Backend Developer — Go · Javascript · TypeScript",
+    "focus": "Network programming · Protocol implementations · CLI tooling",
+    "status": "Open to backend Development roles · Seoul & remote",
     "cta_contact": "get in touch",
     "cta_projects": "view projects ↓"
   },
@@ -25,10 +25,10 @@
   },
   "about": {
     "eyebrow": "About",
-    "title": "Self-taught backend engineer\nbased in Seoul, South Korea.",
-    "p1": "I got into backend engineering by building things I didn't fully understand yet — DNS resolvers, programming language interpreters, distributed caches. That approach stuck. Most of what I know came from reading source code, RFCs, and breaking things until they worked.",
-    "p2": "I care about the layer underneath the framework — how data moves, where it lives, what happens when things fail. I'm most comfortable in Go and TypeScript, and I tend to reach for the simplest solution that actually handles the hard cases.",
-    "p3": "I'm currently looking for backend engineering roles in Seoul and internationally. If something on this site caught your attention, I'd like to hear from you.",
+    "title": "Backend Developer | Node.js, Express, Golang & gRPC | Living in Seoul, South Korea",
+    "p1": "Hi, I’m Eddy Joss Axel Mouity Etavenot. I’m a backend developer with 3+ years of experience building scalable and high-performance systems.",
+    "p2": "I started my journey in 2019 with PHP, and over time I specialized in JavaScript and TypeScript, working mainly with Node.js and Express to design REST APIs and backend services. More recently, I’ve been focusing on Golang to build concurrent systems, microservices, and gRPC-based architectures.",
+    "p3": "I focus on building reliable, production-ready backend systems, with a strong emphasis on performance and system design. Currently, I’m looking to contribute to a team where I can continue growing my skills in distributed systems and backend architecture.",
     "cta_contact": "Get in touch",
     "cta_resume": "Download Resume ↓",
     "cta_github": "GitHub ↗"
@@ -46,7 +46,7 @@
     "error": "Something went wrong. Please try again."
   },
   "footer": {
-    "tagline": "Backend Engineer · Seoul, South Korea"
+    "tagline": "Backend Developer · Seoul, South Korea"
   },
   "project": {
     "problem": "Problem",

@@ -7,10 +7,10 @@
     "resume": "CV ↓"
   },
   "hero": {
-    "whoami": "BornToShine",
+    "whoami": "Eddy Mouity",
     "location": "Séoul, Corée du Sud",
-    "role": "Ingénieur Backend — Go · TypeScript",
-    "focus": "Systèmes distribués · Implémentations de protocoles · Outils CLI",
+    "role": "Backend Developpeur — Go · Javascript · TypeScript",
+    "focus": "La programmation des reseaux · Implémentations de protocoles · Outils CLI",
     "status": "Disponible pour des postes backend · Séoul & remote",
     "cta_contact": "me contacter",
     "cta_projects": "voir les projets ↓"
@@ -25,10 +25,10 @@
   },
   "about": {
     "eyebrow": "À propos",
-    "title": "Ingénieur backend autodidacte\nbasé à Séoul, Corée du Sud.",
-    "p1": "Je me suis lancé dans le développement backend en construisant des choses que je ne comprenais pas encore pleinement — des résolveurs DNS, des interpréteurs de langages, des caches distribués. Cette approche a perduré. La plupart de ce que je sais vient de la lecture de code source, de RFCs, et de systèmes cassés jusqu'à ce qu'ils fonctionnent.",
-    "p2": "Je m'intéresse à la couche sous le framework — comment les données circulent, où elles vivent, ce qui se passe en cas de panne. Je suis plus à l'aise en Go et TypeScript, et je préfère la solution la plus simple qui gère vraiment les cas difficiles.",
-    "p3": "Je recherche actuellement des postes d'ingénieur backend à Séoul et à l'international. Si quelque chose sur ce site a retenu votre attention, j'aimerais vous parler.",
+    "title": "Développeur Backend | Node.js, Express, Golang & gRPC | Séoul, Corée du Sud",
+    "p1": "Bonjour, je m'appelle Mouity Etavenot Eddy Joss Axel, originaire du Gabon en Afrique centrale. Je vis en Corée du Sud depuis février 2017.",
+    "p2": "Je suis un développeur backend passionné disposant avec 3 ans d'expérience dans la construction de systèmes fiables, scalables et haute performance. Depuis mes débuts en 2019 avec PHP, j'ai acquis une solide expertise en JavaScript, TypeScript, Node.js et Express.js, tout en travaillant activement avec Golang.",
+    "p3": "J'aime particulièrement concevoir des API REST performantes et développer des outils CLI avec l'écosystème JavaScript/TypeScript. Parallèlement, j'approfondis mes compétences en Golang pour architecturer des microservices et des services gRPC, afin de proposer des solutions efficaces systèmes de backend, prêtes pour la production.",
     "cta_contact": "Me contacter",
     "cta_resume": "Télécharger le CV ↓",
     "cta_github": "GitHub ↗"
@@ -46,7 +46,7 @@
     "error": "Une erreur s'est produite. Veuillez réessayer."
   },
   "footer": {
-    "tagline": "Ingénieur Backend · Séoul, Corée du Sud"
+    "tagline": "Backend Developpeur · Séoul, Corée du Sud"
   },
   "project": {
     "problem": "Problème",

@@ -9,6 +9,7 @@ export type Project = {
   stack: string;
   concepts: string;
   repo: string;
+  swagger?: string;
   content: {
     problem: string;
     priorArt: string;
@@ -53,13 +54,13 @@ export const projects: Project[] = [
     status: 'wip',
     stack: 'Go · TCP · Gossip Protocol',
     concepts: 'Eventual consistency · Gossip propagation · Vector clocks',
-    repo: 'https://github.com/joss12',
+    repo: 'In Progress....',
     content: {
-      problem: `Most teams enforce Git conventions through code reviews and verbal agreements. This breaks down at scale — inconsistent branch names, missing commit prefixes, manual version bumps. I wanted a CLI that enforces the workflow automatically.`,
-      priorArt: `git-flow exists but it's heavyweight and opinionated about the full branching model. Commitizen handles commit messages but not branching. Nothing handled the full workflow from branch creation to release in a lightweight way.`,
-      designDecisions: `Chose Commander.js over yargs for its cleaner API and better TypeScript support. Kept the config in package.json under a "gitflow" key so it travels with the repo. Made all conventions overridable so teams aren't forced into my defaults.`,
-      architecture: `Three main modules: branch manager (creates/validates branch names), commit linter (enforces conventional commits), and release manager (bumps version, tags, generates changelog). Each is independently usable as a library.`,
-      reflection: `I'd add a --dry-run flag to every command. Teams are cautious about new CLI tools and being able to preview what would happen without executing it would lower the adoption barrier significantly.`,
+      problem: `In Progress....`,
+      priorArt: `In Progress....`,
+      designDecisions: `In Progress....`,
+      architecture: `In Progress....`,
+      reflection: `In Progress...`,
     },
   },
   {
@@ -75,35 +76,37 @@ export const projects: Project[] = [
     stack: 'Go · TCP/UDP · Custom Protocol',
     concepts:
       'Peer discovery · Chunked transfer · NAT traversal · SHA-256 integrity',
-    repo: 'https://github.com/joss12',
+    repo: 'In Progress....',
     content: {
-      problem: `Most teams enforce Git conventions through code reviews and verbal agreements. This breaks down at scale — inconsistent branch names, missing commit prefixes, manual version bumps. I wanted a CLI that enforces the workflow automatically.`,
-      priorArt: `git-flow exists but it's heavyweight and opinionated about the full branching model. Commitizen handles commit messages but not branching. Nothing handled the full workflow from branch creation to release in a lightweight way.`,
-      designDecisions: `Chose Commander.js over yargs for its cleaner API and better TypeScript support. Kept the config in package.json under a "gitflow" key so it travels with the repo. Made all conventions overridable so teams aren't forced into my defaults.`,
-      architecture: `Three main modules: branch manager (creates/validates branch names), commit linter (enforces conventional commits), and release manager (bumps version, tags, generates changelog). Each is independently usable as a library.`,
-      reflection: `I'd add a --dry-run flag to every command. Teams are cautious about new CLI tools and being able to preview what would happen without executing it would lower the adoption barrier significantly.`,
+      problem: `In Progress....`,
+      priorArt: `In Progress....`,
+      designDecisions: `In Progress....`,
+      architecture: `In Progress....`,
+      reflection: `In Progress....`,
     },
   },
+
+  //Ptolemy lang
   {
     slug: 'ptolemy-lang',
     name: 'Ptolemy Lang',
     description:
       'Complete interpreter from scratch — lexer, parser, AST, evaluator, closures.',
     tagline:
-      'A complete programming language interpreter built from scratch in Go — covering lexing, parsing, AST construction, evaluation, closures, and lexical scoping.',
+      'A complete costum programming language interpreter built from scratch in Go — covering lexing, parsing, AST construction, evaluation, closures, and lexical scoping.',
     tag: 'Go',
     tagColor: 'text-cyan-400 bg-cyan-400/10',
     status: 'complete',
     stack: 'Go',
     concepts:
       'Lexer · Parser · AST · Tree-walk evaluation · Closures · Lexical scoping',
-    repo: 'https://github.com/joss12',
+    repo: 'https://github.com/joss12/Ptolemy-Lang',
     content: {
-      problem: `Most teams enforce Git conventions through code reviews and verbal agreements. This breaks down at scale — inconsistent branch names, missing commit prefixes, manual version bumps. I wanted a CLI that enforces the workflow automatically.`,
-      priorArt: `git-flow exists but it's heavyweight and opinionated about the full branching model. Commitizen handles commit messages but not branching. Nothing handled the full workflow from branch creation to release in a lightweight way.`,
-      designDecisions: `Chose Commander.js over yargs for its cleaner API and better TypeScript support. Kept the config in package.json under a "gitflow" key so it travels with the repo. Made all conventions overridable so teams aren't forced into my defaults.`,
-      architecture: `Three main modules: branch manager (creates/validates branch names), commit linter (enforces conventional commits), and release manager (bumps version, tags, generates changelog). Each is independently usable as a library.`,
-      reflection: `I'd add a --dry-run flag to every command. Teams are cautious about new CLI tools and being able to preview what would happen without executing it would lower the adoption barrier significantly.`,
+      problem: `Ptolemy is a custom programming language written in Go, featuring JavaScript-like syntax and designed for educational purposes and personal coding experimentation.`,
+      priorArt: `Ptolemy is inspired by JavaScript, adopting a familiar syntax while exploring the fundamentals of interpreter design and execution in Go`,
+      designDecisions: `Ptolemy uses JavaScript-like syntax for familiarity and focuses on implementing core interpreter components (lexer, parser, AST, execution) rather than being feature-complete. It is built in Go for simplicity and clarity.`,
+      architecture: `Ptolemy is structured around the core stages of language execution: lexing, parsing, AST construction, and interpretation. Each stage is separated to keep the implementation clear, modular, and easy to extend..`,
+      reflection: `Building Ptolemy provided hands-on insight into how programming languages work under the hood, from parsing to execution. It highlighted the importance of clear structure, simplicity, and the trade-offs involved in language design.`,
     },
   },
   {
@@ -115,39 +118,46 @@ export const projects: Project[] = [
       'A DNS resolver built over raw UDP sockets in Go — manual packet crafting and parsing following RFC 1035, with no external DNS libraries.',
     tag: 'Go',
     tagColor: 'text-cyan-400 bg-cyan-400/10',
-    status: 'complete',
+    status: 'wip',
     stack: 'Go · UDP · RFC 1035',
     concepts:
       'UDP sockets · Binary packet encoding · RFC 1035 · Recursive resolution',
-    repo: 'https://github.com/joss12',
+    repo: 'In Progress....',
     content: {
-      problem: `Most teams enforce Git conventions through code reviews and verbal agreements. This breaks down at scale — inconsistent branch names, missing commit prefixes, manual version bumps. I wanted a CLI that enforces the workflow automatically.`,
-      priorArt: `git-flow exists but it's heavyweight and opinionated about the full branching model. Commitizen handles commit messages but not branching. Nothing handled the full workflow from branch creation to release in a lightweight way.`,
-      designDecisions: `Chose Commander.js over yargs for its cleaner API and better TypeScript support. Kept the config in package.json under a "gitflow" key so it travels with the repo. Made all conventions overridable so teams aren't forced into my defaults.`,
-      architecture: `Three main modules: branch manager (creates/validates branch names), commit linter (enforces conventional commits), and release manager (bumps version, tags, generates changelog). Each is independently usable as a library.`,
-      reflection: `I'd add a --dry-run flag to every command. Teams are cautious about new CLI tools and being able to preview what would happen without executing it would lower the adoption barrier significantly.`,
+      problem: `In Progress....`,
+      priorArt: `In Progress....`,
+      designDecisions: `In Progress....`,
+      architecture: `In Progress....`,
+      reflection: `In Progress....`,
     },
   },
+
   {
-    slug: 'hanguk-flash-sale',
-    name: 'Hanguk Flash Sale',
+    slug: 'smartcart-backend',
+    name: 'SmartCart API',
     description:
-      'High-throughput K-pop merch engine — sagas, event sourcing, circuit breakers.',
+      'Production-ready e-commerce backend — full order lifecycle, payment webhooks, BullMQ queues, Redis caching and Swagger docs.',
     tagline:
-      'A high-throughput flash sale backend in Go — designed to handle extreme traffic spikes using saga-based checkout, event sourcing, and circuit breakers.',
-    tag: 'Go',
-    tagColor: 'text-cyan-400 bg-cyan-400/10',
-    status: 'wip',
-    stack: 'Go · PostgreSQL · Redis · Kafka',
+      'A production-ready e-commerce backend built with Node.js, TypeScript, PostgreSQL and Redis. Features JWT auth, cursor-based pagination, pessimistic locking to prevent overselling, payment webhook processing, background job queues, and transactional email.',
+    tag: 'TypeScript',
+    tagColor: 'text-blue-400 bg-blue-400/10',
+    status: 'complete',
+    stack: 'Node.js · TypeScript · Express 5 · PostgreSQL · Redis · BullMQ',
     concepts:
-      'Saga pattern · Event sourcing · Circuit breakers · Distributed transactions',
-    repo: 'https://github.com/joss12',
+      'JWT auth · Pessimistic locking · Webhook idempotency · Background jobs · Cursor pagination',
+    repo: 'https://github.com/joss12/smartcart-backend',
+    swagger: 'https://smartcart-backend-i1zg.onrender.com/docs',
     content: {
-      problem: `Most teams enforce Git conventions through code reviews and verbal agreements. This breaks down at scale — inconsistent branch names, missing commit prefixes, manual version bumps. I wanted a CLI that enforces the workflow automatically.`,
-      priorArt: `git-flow exists but it's heavyweight and opinionated about the full branching model. Commitizen handles commit messages but not branching. Nothing handled the full workflow from branch creation to release in a lightweight way.`,
-      designDecisions: `Chose Commander.js over yargs for its cleaner API and better TypeScript support. Kept the config in package.json under a "gitflow" key so it travels with the repo. Made all conventions overridable so teams aren't forced into my defaults.`,
-      architecture: `Three main modules: branch manager (creates/validates branch names), commit linter (enforces conventional commits), and release manager (bumps version, tags, generates changelog). Each is independently usable as a library.`,
-      reflection: `I'd add a --dry-run flag to every command. Teams are cautious about new CLI tools and being able to preview what would happen without executing it would lower the adoption barrier significantly.`,
+      problem:
+        'E-commerce backends look simple until you face real concurrency — two users buying the last item simultaneously, a payment webhook firing three times, an email job silently failing. SmartCart was built to handle all of these correctly from the start, not as an afterthought.',
+      priorArt:
+        'I studied how Stripe handles idempotency and how PostgreSQL row-level locking behaves under concurrent transactions before writing a single line. The core insight: most e-commerce bugs come from optimistic assumptions about concurrency. SmartCart makes none.',
+      designDecisions:
+        'Pessimistic locking on stock — SELECT ... FOR UPDATE inside a transaction before every checkout. Overselling is impossible regardless of load.Webhook idempotency via a webhook_events table — every incoming event is recorded before processing. Duplicate webhooks are detected and discarded safely.Worker process separated from the API — emails, image resizing, and stock alerts run in a dedicated BullMQ worker. Jobs survive worker crashes and retry automatically.',
+      architecture:
+        'Client → Express API (controllers → services → repositories)PostgreSQL — users, products, orders, audit logsRedis — cart storage, product cache BullMQ Worker — emails, image processing, stock alerts',
+      reflection:
+        "Three things I'd change: move image uploads to pre-signed S3 URLs to support horizontal scaling, replace pessimistic locking with a queue-based checkout system for higher throughput, and add dedicated failure scenario tests for the webhook idempotency logic.",
     },
   },
 ];

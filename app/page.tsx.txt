@@ -1,121 +1,667 @@
-{/* Terminal Hero */}
-            <div className="rounded-lg border border-neutral-800 bg-neutral-900 overflow-hidden mb-16">
-                <div className="flex items-center gap-2 px-4 py-3 border-b border-neutral-800 bg-neutral-950">
-                    <span className="h-3 w-3 rounded-full bg-red-500/70" />
-                    <span className="h-3 w-3 rounded-full bg-yellow-500/70" />
-                    <span className="h-3 w-3 rounded-full bg-green-500/70" />
-                    <span className="ml-3 font-mono text-xs text-neutral-600">portfolio ~ zsh</span>
-                </div>
+'use client';
 
-                <div className="px-5 py-5 font-mono text-sm flex flex-col gap-3">
-                    {lines.slice(0, visibleLines).map((line, i) => (
-                        <div key={i} className="flex flex-col gap-0.5">
-                            <span className="text-blue-400">{line.prompt}</span>
-                            <span className="text-neutral-300 pl-2">{line.output}</span>
-                        </div>
-                    ))}
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { useTranslations, useLocale } from 'next-intl';
+import { projects } from '@/lib/projects';
+import AnimatedSkills from '@/components/ui/AnimatedSkills';
+import AnimatedProjects from '@/components/ui/AnimatedProjects';
+import OtherProjects from '@/components/ui/OtherProjects';
+import BootWrapper from '@/components/ui/BootWrapper';
 
-                    {visibleLines < lines.length && (
-                        <span className="text-blue-400 animate-pulse">▋</span>
-                    )}
+export default function Home() {
+  const t = useTranslations();
+  const locale = useLocale();
+  const [visibleLines, setVisibleLines] = useState(0);
+  const [typedText, setTypedText] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
 
-                    {visibleLines >= lines.length && (
-                        <div className="flex items-center gap-4 mt-2">
-                            <span className="text-blue-400">$ </span>
-                            <Link href="/contact" className="rounded border border-blue-500 px-4 py-1.5 text-xs font-semibold text-blue-400 hover:bg-blue-500 hover:text-white transition-colors">
-                                get in touch
-                            </Link>
-                            <Link href="#projects" className="text-xs text-neutral-500 hover:text-neutral-300 transition-colors">
-                                view projects ↓
-                            </Link>
-                        </div>
-                    )}
-                </div>
-            </div>
+  const lines = [
+    {
+      prompt: '$ whoami',
+      output: t('hero.whoami'),
+      promptColor: 'text-emerald-400',
+    },
+    {
+      prompt: '$ location',
+      output: t('hero.location'),
+      promptColor: 'text-cyan-400',
+    },
+    { prompt: '$ role', output: t('hero.role'), promptColor: 'text-blue-400' },
+    {
+      prompt: '$ focus',
+      output: t('hero.focus'),
+      promptColor: 'text-purple-400',
+    },
+    {
+      prompt: '$ status',
+      output: t('hero.status'),
+      promptColor: 'text-amber-400',
+    },
+  ];
 
-            <hr className="border-neutral-800 mb-12" />
+  useEffect(() => {
+    if (visibleLines >= lines.length) return;
+    if (isTyping) return;
+    const delay = setTimeout(() => {
+      setIsTyping(true);
+      setTypedText('');
+    }, 300);
+    return () => clearTimeout(delay);
+  }, [visibleLines, isTyping]);
 
-            {/* Projects */}
-            <p id="projects" className="font-mono text-xs font-bold uppercase tracking-widest text-neutral-600 mb-4">
-                Projects
-            </p>
+  useEffect(() => {
+    if (!isTyping) return;
+    if (visibleLines >= lines.length) return;
+    const fullText = lines[visibleLines].prompt;
+    if (typedText.length < fullText.length) {
+      const t = setTimeout(() => {
+        setTypedText(fullText.slice(0, typedText.length + 1));
+      }, 55);
+      return () => clearTimeout(t);
+    } else {
+      const timer = setTimeout(() => {
+        setVisibleLines((v) => v + 1);
+        setIsTyping(false);
+        setTypedText('');
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [isTyping, typedText, visibleLines]);
 
-            <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                {projects.map((project) => (
-                    <li key={project.name}>
-                        <Link href={project.href} className="group flex flex-col justify-between h-full rounded-lg border border-neutral-800 bg-neutral-900 p-6 transition-colors hover:border-neutral-700">
-                            <div>
-                                <div className="flex items-start justify-between mb-3">
-                                    <h3 className="text-base font-semibold text-white group-hover:text-blue-400 transition-colors leading-snug">
-                                        {project.name}
-                                    </h3>
-                                    <span className={`shrink-0 ml-3 h-1.5 w-1.5 rounded-full mt-1.5 ${project.status === 'complete' ? 'bg-emerald-400' : 'bg-amber-400'}`} />
-                                </div>
-                                <p className="text-sm text-neutral-500 leading-relaxed mb-6">
-                                    {project.description}
-                                </p>
-                            </div>
-                            <div className="flex items-center justify-between">
-                                <span className={`rounded font-mono text-xs font-semibold px-2 py-1 ${project.tagColor}`}>
-                                    {project.tag}
-                                </span>
-                                <span className="text-xs font-semibold text-blue-400 group-hover:text-blue-300 transition-colors">
-                                    View →
-                                </span>
-                            </div>
-                        </Link>
-                    </li>
+  return (
+    <BootWrapper>
+      <main className="mx-auto max-w-3xl px-6 py-24">
+        {/* Hero */}
+        <div className="mb-16 flex flex-col-reverse gap-8 sm:flex-row sm:items-start sm:gap-10">
+          <div className="min-w-0 flex-1">
+            <div
+              className="overflow-hidden rounded-lg border border-neutral-700 bg-neutral-900"
+              style={{
+                boxShadow:
+                  '0 0 30px rgba(0, 180, 216, 0.12), 0 0 60px rgba(0, 180, 216, 0.05)',
+              }}
+            >
+              <div className="flex items-center gap-2 border-b border-neutral-800 bg-neutral-950 px-4 py-3">
+                <span className="h-3 w-3 rounded-full bg-red-500/80" />
+                <span className="h-3 w-3 rounded-full bg-yellow-500/80" />
+                <span className="h-3 w-3 rounded-full bg-green-500/80" />
+                <span className="ml-3 font-mono text-xs text-neutral-500">
+                  Eddy Mouity
+                </span>
+              </div>
+              <div className="flex flex-col gap-4 px-5 py-5 font-mono text-sm">
+                {lines.slice(0, visibleLines).map((line, i) => (
+                  <div
+                    key={i}
+                    className="animate-fadeIn flex flex-col gap-1"
+                    style={{ animationDelay: `${i * 50}ms` }}
+                  >
+                    <span className={`${line.promptColor} font-semibold`}>
+                      {line.prompt}
+                    </span>
+                    <span className="pl-2 text-xs leading-relaxed text-neutral-200">
+                      {line.output}
+                    </span>
+                  </div>
                 ))}
-            </ul>
-
-            <hr className="border-neutral-800 my-12" />
-
-            {/* About */}
-            <p className="font-mono text-xs font-bold uppercase tracking-widest text-neutral-600 mb-4">
-                About
-            </p>
-            <div className="flex flex-col gap-4 text-sm text-neutral-500 leading-relaxed">
-                <p>
-                    I&apos;m a self-taught backend engineer based in Seoul, South Korea. I build systems
-                    in Go and TypeScript, and I care about understanding why things work — not just making them work.
-                </p>
-                <p>
-                    Most of what you&apos;ll find here is low-level and foundational: distributed systems,
-                    protocol implementations, compilers, CLI tooling. The kind of work that doesn&apos;t
-                    have a UI but has a lot of interesting decisions underneath.
-                </p>
-                <p>
-                    Available for backend engineering roles in Seoul and internationally.{' '}
-                    <Link href="/contact" className="text-blue-400 hover:text-blue-300 transition-colors">
-                        Get in touch →
+                {isTyping && visibleLines < lines.length && (
+                  <div className="flex flex-col gap-1">
+                    <span
+                      className={`${lines[visibleLines].promptColor} font-semibold`}
+                    >
+                      {typedText}
+                      <span className="animate-pulse">▋</span>
+                    </span>
+                  </div>
+                )}
+                {!isTyping && visibleLines < lines.length && (
+                  <span
+                    className={`${lines[visibleLines].promptColor} animate-pulse`}
+                  >
+                    ▋
+                  </span>
+                )}
+                {visibleLines >= lines.length && (
+                  <div className="animate-fadeIn mt-1 flex items-center gap-4">
+                    <span className="text-cyan-400">$ </span>
+                    <Link
+                      href={`/${locale}/contact`}
+                      className="rounded border border-cyan-500 px-4 py-1.5 text-xs font-semibold text-cyan-400 transition-all duration-200 hover:bg-cyan-500 hover:text-white"
+                    >
+                      {t('hero.cta_contact')}
                     </Link>
-                </p>
+                    <a
+                      href="#projects"
+                      className="text-xs text-neutral-500 transition-colors hover:text-neutral-300"
+                    >
+                      {t('hero.cta_projects')}
+                    </a>
+                  </div>
+                )}
+              </div>
             </div>
+          </div>
+          <div className="flex shrink-0 justify-center sm:block">
+            <img
+              src="/photo/last.jpeg"
+              alt="Eddy Mouity"
+              style={{
+                width: '240px',
+                height: '240px',
+                objectPosition: 'center top',
+              }}
+              className="rounded-full border-2 border-cyan-500/30 object-cover"
+            />
+          </div>{' '}
+        </div>
+
+        <hr className="mb-12 border-neutral-800" />
+
+        <p
+          id="projects"
+          className="mb-6 font-mono text-xs font-bold tracking-widest text-neutral-600 uppercase"
+        >
+          {t('sections.projects')}
+        </p>
+        <AnimatedProjects projects={projects} />
+        <OtherProjects />
+
+        <hr className="my-12 border-neutral-800" />
+
+        <p
+          id="skills"
+          className="mb-6 font-mono text-xs font-bold tracking-widest text-neutral-600 uppercase"
+        >
+          {t('sections.skills')}
+        </p>
+        <AnimatedSkills />
+
+        <hr className="my-12 border-neutral-800" />
+
+        <p className="mb-4 font-mono text-xs font-bold tracking-widest text-neutral-600 uppercase">
+          {t('sections.about')}
+        </p>
+        <div className="flex flex-col gap-4 text-sm leading-relaxed text-neutral-500">
+          <p>{t('about.p1')}</p>
+          <p>{t('about.p2')}</p>
+          <p>
+            {t('about.p3')}{' '}
+            <Link
+              href={`/${locale}/contact`}
+              className="text-cyan-400 transition-colors hover:text-cyan-300"
+            >
+              {t('about.cta_contact')} →
+            </Link>
+          </p>
+        </div>
+      </main>
+    </BootWrapper>
+  );
+}
 
 
 
-const lines = [
-    { prompt: '$ whoami', output: 'Eddy Mouity' },
-    { prompt: '$ location', output: 'Seoul, South Korea' },
-    { prompt: '$ role', output: 'Backend Developer — Go, Javascript, TypeScript' },
-    { prompt: '$ focus', output: 'CLI tooling · Microservices · Network programming' },
-    { prompt: '$ status', output: 'Open to backend development roles · Seoul & remote' },
-];
 
 
 
 
-background-color: #0a0a0f;
-  background-image:
-    radial-gradient(
-      ellipse 80% 50% at 50% -10%,
-      rgba(0, 180, 216, 0.1),
-      transparent
-    ),
-    radial-gradient(
-      ellipse 60% 40% at 80% 80%,
-      rgba(0, 180, 216, 0.05),
-      transparent
-    );
-  min-height: 100vh;
+
+// --- Part 2 -----
+
+
+'use client';
+
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { useTranslations, useLocale } from 'next-intl';
+import { projects } from '@/lib/projects';
+import AnimatedSkills from '@/components/ui/AnimatedSkills';
+import AnimatedProjects from '@/components/ui/AnimatedProjects';
+import OtherProjects from '@/components/ui/OtherProjects';
+import BootWrapper from '@/components/ui/BootWrapper';
+
+export default function Home() {
+  const t = useTranslations();
+  const locale = useLocale();
+  const [visibleLines, setVisibleLines] = useState(0);
+  const [typedText, setTypedText] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
+
+  const lines = [
+    {
+      prompt: '$ whoami',
+      output: t('hero.whoami'),
+      promptColor: 'text-emerald-400',
+    },
+    {
+      prompt: '$ location',
+      output: t('hero.location'),
+      promptColor: 'text-cyan-400',
+    },
+    { prompt: '$ role', output: t('hero.role'), promptColor: 'text-blue-400' },
+    {
+      prompt: '$ focus',
+      output: t('hero.focus'),
+      promptColor: 'text-purple-400',
+    },
+    {
+      prompt: '$ status',
+      output: t('hero.status'),
+      promptColor: 'text-amber-400',
+    },
+  ];
+
+  useEffect(() => {
+    if (visibleLines >= lines.length) return;
+    if (isTyping) return;
+    const delay = setTimeout(() => {
+      setIsTyping(true);
+      setTypedText('');
+    }, 300);
+    return () => clearTimeout(delay);
+  }, [visibleLines, isTyping]);
+
+  useEffect(() => {
+    if (!isTyping) return;
+    if (visibleLines >= lines.length) return;
+    const fullText = lines[visibleLines].prompt;
+    if (typedText.length < fullText.length) {
+      const t = setTimeout(() => {
+        setTypedText(fullText.slice(0, typedText.length + 1));
+      }, 55);
+      return () => clearTimeout(t);
+    } else {
+      const timer = setTimeout(() => {
+        setVisibleLines((v) => v + 1);
+        setIsTyping(false);
+        setTypedText('');
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [isTyping, typedText, visibleLines]);
+
+  return (
+    <BootWrapper>
+      <main className="mx-auto max-w-3xl px-6 py-24">
+        {/* Hero */}
+        <div className="mb-16 flex flex-col-reverse gap-8 sm:flex-row sm:items-start sm:gap-10">
+          {/* Left — terminal */}
+          <div className="min-w-0 flex-1">
+            <div
+              className="overflow-hidden rounded-lg border border-neutral-700 bg-neutral-900"
+              style={{
+                boxShadow:
+                  '0 0 30px rgba(0, 180, 216, 0.12), 0 0 60px rgba(0, 180, 216, 0.05)',
+              }}
+            >
+              <div className="flex items-center gap-2 border-b border-neutral-800 bg-neutral-950 px-4 py-3">
+                <span className="h-3 w-3 rounded-full bg-red-500/80" />
+                <span className="h-3 w-3 rounded-full bg-yellow-500/80" />
+                <span className="h-3 w-3 rounded-full bg-green-500/80" />
+                <span className="ml-3 font-mono text-xs text-neutral-500">
+                  Eddy Mouity
+                </span>
+              </div>
+              <div className="flex flex-col gap-4 px-5 py-5 font-mono text-sm">
+                {lines.slice(0, visibleLines).map((line, i) => (
+                  <div
+                    key={i}
+                    className="animate-fadeIn flex flex-col gap-1"
+                    style={{ animationDelay: `${i * 50}ms` }}
+                  >
+                    <span className={`${line.promptColor} font-semibold`}>
+                      {line.prompt}
+                    </span>
+                    <span className="pl-2 text-xs leading-relaxed text-neutral-200">
+                      {line.output}
+                    </span>
+                  </div>
+                ))}
+                {isTyping && visibleLines < lines.length && (
+                  <div className="flex flex-col gap-1">
+                    <span
+                      className={`${lines[visibleLines].promptColor} font-semibold`}
+                    >
+                      {typedText}
+                      <span className="animate-pulse">▋</span>
+                    </span>
+                  </div>
+                )}
+                {!isTyping && visibleLines < lines.length && (
+                  <span
+                    className={`${lines[visibleLines].promptColor} animate-pulse`}
+                  >
+                    ▋
+                  </span>
+                )}
+                {visibleLines >= lines.length && (
+                  <div className="animate-fadeIn mt-1 flex items-center gap-4">
+                    <span className="text-cyan-400">$ </span>
+                    <Link
+                      href={`/${locale}/contact`}
+                      className="rounded border border-cyan-500 px-4 py-1.5 text-xs font-semibold text-cyan-400 transition-all duration-200 hover:bg-cyan-500 hover:text-white"
+                    >
+                      {t('hero.cta_contact')}
+                    </Link>
+                    <a
+                      href="#projects"
+                      className="text-xs text-neutral-500 transition-colors hover:text-neutral-300"
+                    >
+                      {t('hero.cta_projects')}
+                    </a>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Right — photo */}
+          <div className="flex shrink-0 justify-center sm:block">
+            <div className="relative">
+              <img
+                src="/photo/last.jpeg"
+                alt="Eddy Mouity"
+                style={{
+                  width: '280px',
+                  height: '280px',
+                  objectPosition: 'center top',
+                }}
+                className="rounded-2xl object-cover"
+              />
+              <div
+                className="absolute inset-0 rounded-2xl"
+                style={{
+                  background:
+                    'linear-gradient(to bottom, transparent 60%, rgba(5,13,31,0.85) 100%)',
+                }}
+              />
+              <div
+                className="absolute inset-0 rounded-2xl"
+                style={{
+                  boxShadow:
+                    '0 0 0 1.5px rgba(0,180,216,0.25), 0 8px 32px rgba(0,0,0,0.4)',
+                }}
+              />
+            </div>
+          </div>
+        </div>
+
+        <hr className="mb-12 border-neutral-800" />
+
+        {/* Projects */}
+        <p
+          id="projects"
+          className="mb-6 font-mono text-xs font-bold tracking-widest text-neutral-600 uppercase"
+        >
+          {t('sections.projects')}
+        </p>
+        <AnimatedProjects projects={projects} />
+        <OtherProjects />
+
+        <hr className="my-12 border-neutral-800" />
+
+        {/* Skills */}
+        <p
+          id="skills"
+          className="mb-6 font-mono text-xs font-bold tracking-widest text-neutral-600 uppercase"
+        >
+          {t('sections.skills')}
+        </p>
+        <AnimatedSkills />
+
+        <hr className="my-12 border-neutral-800" />
+
+        {/* About */}
+        <p className="mb-4 font-mono text-xs font-bold tracking-widest text-neutral-600 uppercase">
+          {t('sections.about')}
+        </p>
+        <div className="flex flex-col gap-4 text-sm leading-relaxed text-neutral-500">
+          <p>{t('about.p1')}</p>
+          <p>{t('about.p2')}</p>
+          <p>
+            {t('about.p3')}{' '}
+            <Link
+              href={`/${locale}/contact`}
+              className="text-cyan-400 transition-colors hover:text-cyan-300"
+            >
+              {t('about.cta_contact')} →
+            </Link>
+          </p>
+        </div>
+      </main>
+    </BootWrapper>
+  );
+}
+
+
+
+
+
+/// ------ Part 3 -----
+
+'use client';
+
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { useTranslations, useLocale } from 'next-intl';
+import { projects } from '@/lib/projects';
+import AnimatedSkills from '@/components/ui/AnimatedSkills';
+import AnimatedProjects from '@/components/ui/AnimatedProjects';
+import OtherProjects from '@/components/ui/OtherProjects';
+import BootWrapper from '@/components/ui/BootWrapper';
+import Image from 'next/image';
+
+export default function Home() {
+  const t = useTranslations();
+  const locale = useLocale();
+  const [visibleLines, setVisibleLines] = useState(0);
+  const [typedText, setTypedText] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
+
+  const lines = [
+    {
+      prompt: '$ whoami',
+      output: t('hero.whoami'),
+      promptColor: 'text-emerald-400',
+    },
+    {
+      prompt: '$ location',
+      output: t('hero.location'),
+      promptColor: 'text-cyan-400',
+    },
+    { prompt: '$ role', output: t('hero.role'), promptColor: 'text-blue-400' },
+    {
+      prompt: '$ focus',
+      output: t('hero.focus'),
+      promptColor: 'text-purple-400',
+    },
+    {
+      prompt: '$ status',
+      output: t('hero.status'),
+      promptColor: 'text-amber-400',
+    },
+  ];
+
+  useEffect(() => {
+    if (visibleLines >= lines.length) return;
+    if (isTyping) return;
+    const delay = setTimeout(() => {
+      setIsTyping(true);
+      setTypedText('');
+    }, 300);
+    return () => clearTimeout(delay);
+  }, [visibleLines, isTyping]);
+
+  useEffect(() => {
+    if (!isTyping) return;
+    if (visibleLines >= lines.length) return;
+    const fullText = lines[visibleLines].prompt;
+    if (typedText.length < fullText.length) {
+      const t = setTimeout(() => {
+        setTypedText(fullText.slice(0, typedText.length + 1));
+      }, 55);
+      return () => clearTimeout(t);
+    } else {
+      const timer = setTimeout(() => {
+        setVisibleLines((v) => v + 1);
+        setIsTyping(false);
+        setTypedText('');
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [isTyping, typedText, visibleLines]);
+
+  return (
+    <BootWrapper>
+      <main className="mx-auto max-w-3xl px-6 py-24">
+        {/* Hero */}
+        <div className="mb-16 flex flex-col-reverse gap-8 sm:flex-row sm:items-center sm:gap-10">
+          {/* Left — terminal */}
+          <div className="min-w-0 flex-1">
+            <div
+              className="overflow-hidden rounded-lg border border-neutral-700 bg-neutral-900"
+              style={{
+                boxShadow:
+                  '0 0 30px rgba(0, 180, 216, 0.12), 0 0 60px rgba(0, 180, 216, 0.05)',
+              }}
+            >
+              <div className="flex items-center gap-2 border-b border-neutral-800 bg-neutral-950 px-4 py-3">
+                <span className="h-3 w-3 rounded-full bg-red-500/80" />
+                <span className="h-3 w-3 rounded-full bg-yellow-500/80" />
+                <span className="h-3 w-3 rounded-full bg-green-500/80" />
+                <span className="ml-3 font-mono text-xs text-neutral-500">
+                  Eddy Mouity
+                </span>
+              </div>
+              <div className="flex flex-col gap-4 px-5 py-5 font-mono text-sm">
+                {lines.slice(0, visibleLines).map((line, i) => (
+                  <div
+                    key={i}
+                    className="animate-fadeIn flex flex-col gap-1"
+                    style={{ animationDelay: `${i * 50}ms` }}
+                  >
+                    <span className={`${line.promptColor} font-semibold`}>
+                      {line.prompt}
+                    </span>
+                    <span className="pl-2 text-xs leading-relaxed text-neutral-200">
+                      {line.output}
+                    </span>
+                  </div>
+                ))}
+                {isTyping && visibleLines < lines.length && (
+                  <div className="flex flex-col gap-1">
+                    <span
+                      className={`${lines[visibleLines].promptColor} font-semibold`}
+                    >
+                      {typedText}
+                      <span className="animate-pulse">▋</span>
+                    </span>
+                  </div>
+                )}
+                {!isTyping && visibleLines < lines.length && (
+                  <span
+                    className={`${lines[visibleLines].promptColor} animate-pulse`}
+                  >
+                    ▋
+                  </span>
+                )}
+                {visibleLines >= lines.length && (
+                  <div className="animate-fadeIn mt-1 flex items-center gap-4">
+                    <span className="text-cyan-400">$ </span>
+                    <Link
+                      href={`/${locale}/contact`}
+                      className="rounded border border-cyan-500 px-4 py-1.5 text-xs font-semibold text-cyan-400 transition-all duration-200 hover:bg-cyan-500 hover:text-white"
+                    >
+                      {t('hero.cta_contact')}
+                    </Link>
+                    <a
+                      href="#projects"
+                      className="text-xs text-neutral-500 transition-colors hover:text-neutral-300"
+                    >
+                      {t('hero.cta_projects')}
+                    </a>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Right — photo */}
+          <div className="flex shrink-0 justify-center sm:block">
+            <div className="relative">
+              <img
+                src="/photo/last.jpeg"
+                alt="Eddy Mouity"
+                style={{
+                  width: '250px',
+                  height: '300px',
+                  objectPosition: 'center top',
+                }}
+                className="rounded-2xl object-cover"
+              />
+              <div
+                className="absolute inset-0 rounded-2xl"
+                style={{
+                  background:
+                    'linear-gradient(to bottom, transparent 60%, rgba(5,13,31,0.85) 100%)',
+                }}
+              />
+              <div
+                className="absolute inset-0 rounded-2xl"
+                style={{
+                  boxShadow:
+                    '0 0 0 1.5px rgba(0,180,216,0.25), 0 8px 32px rgba(0,0,0,0.4)',
+                }}
+              />
+            </div>
+          </div>
+        </div>
+
+        <hr className="mb-12 border-neutral-800" />
+
+        {/* Projects */}
+        <p
+          id="projects"
+          className="mb-6 font-mono text-xs font-bold tracking-widest text-neutral-600 uppercase"
+        >
+          {t('sections.projects')}
+        </p>
+        <AnimatedProjects projects={projects} />
+        <OtherProjects />
+
+        <hr className="my-12 border-neutral-800" />
+
+        {/* Skills */}
+        <p
+          id="skills"
+          className="mb-6 font-mono text-xs font-bold tracking-widest text-neutral-600 uppercase"
+        >
+          {t('sections.skills')}
+        </p>
+        <AnimatedSkills />
+
+        <hr className="my-12 border-neutral-800" />
+
+        {/* About */}
+        <p className="mb-4 font-mono text-xs font-bold tracking-widest text-neutral-600 uppercase">
+          {t('sections.about')}
+        </p>
+        <div className="flex flex-col gap-4 text-sm leading-relaxed text-neutral-500">
+          <p>{t('about.p1')}</p>
+          <p>{t('about.p2')}</p>
+          <p>
+            {t('about.p3')}{' '}
+            <Link
+              href={`/${locale}/contact`}
+              className="text-cyan-400 transition-colors hover:text-cyan-300"
+            >
+              {t('about.cta_contact')} →
+            </Link>
+          </p>
+        </div>
+      </main>
+    </BootWrapper>
+  );
+}
 
