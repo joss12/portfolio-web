@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
-import { Github, Menu, X } from 'lucide-react';
+import { Github, Menu, X, Linkedin } from 'lucide-react';
 import { useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import DocumentPicker from '@/components/ui/DocumentPicker';
@@ -117,14 +117,24 @@ export default function Navbar() {
             ))}
           </div>
 
-          <a
-            href="https://github.com/joss12"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-neutral-400 transition-colors hover:text-cyan-400"
-          >
-            <Github size={17} />
-          </a>
+          <div className="flex items-center gap-3">
+            <a
+              href="https://github.com/joss12"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-neutral-400 transition-colors hover:text-cyan-400"
+            >
+              <Github size={17} />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/eddymouity"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-neutral-400 transition-colors hover:text-cyan-400"
+            >
+              <Linkedin size={17} />
+            </a>
+          </div>
         </nav>
 
         <button
@@ -174,6 +184,25 @@ export default function Navbar() {
 
           <DocumentPicker label={t('resume')} />
 
+          <div className="flex items-center gap-4">
+            <a
+              href="https://github.com/joss12"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-neutral-400 transition-colors hover:text-white"
+            >
+              <Github size={17} />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/your-linkedin"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-neutral-400 transition-colors hover:text-white"
+            >
+              <Linkedin size={17} />
+            </a>
+          </div>
+
           <div className="flex items-center gap-2">
             {locales.map((loc) => (
               <button
@@ -192,15 +221,6 @@ export default function Navbar() {
               </button>
             ))}
           </div>
-
-          <a
-            href="https://github.com/joss12"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm text-neutral-400 transition-colors hover:text-white"
-          >
-            GitHub ↗
-          </a>
         </div>
       )}
     </header>

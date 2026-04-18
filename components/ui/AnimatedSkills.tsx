@@ -10,11 +10,11 @@ const skills = [
   },
   {
     category: 'Databases',
-    items: ['MySql', 'PostgreSQL', 'Redis', 'SQLite', 'Nginx'],
+    items: ['MySql', 'PostgreSQL', 'Redis', 'SQLite'],
   },
   {
     category: 'Tools',
-    items: ['Docker', 'Linux', 'NeoVim', 'Postman'],
+    items: ['Docker', 'Linux', 'NeoVim', 'Postman', 'Nginx'],
   },
   {
     category: 'Focus',
