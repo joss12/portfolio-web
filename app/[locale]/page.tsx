@@ -2,13 +2,13 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useTranslations, useLocale } from 'next-intl';
 import { projects } from '@/lib/projects';
 import AnimatedSkills from '@/components/ui/AnimatedSkills';
 import AnimatedProjects from '@/components/ui/AnimatedProjects';
 import OtherProjects from '@/components/ui/OtherProjects';
 import BootWrapper from '@/components/ui/BootWrapper';
-import Image from 'next/image';
 
 export default function Home() {
   const t = useTranslations();
@@ -152,7 +152,7 @@ export default function Home() {
               style={{ width: '200px', height: '260px' }}
             >
               <Image
-                src="/photo/last.jpeg"
+                src="/photo/photo_final.jpeg"
                 alt="Eddy Mouity"
                 fill
                 quality={100}
