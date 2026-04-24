@@ -54,13 +54,13 @@ export const projects: Project[] = [
     status: 'wip',
     stack: 'Go · TCP · Gossip Protocol',
     concepts: 'Eventual consistency · Gossip propagation · Vector clocks',
-    repo: 'In Progress....',
+    repo: 'https://github.com/joss12',
     content: {
-      problem: `In Progress....`,
-      priorArt: `In Progress....`,
-      designDecisions: `In Progress....`,
-      architecture: `In Progress....`,
-      reflection: `In Progress...`,
+      problem: `Most teams enforce Git conventions through code reviews and verbal agreements. This breaks down at scale — inconsistent branch names, missing commit prefixes, manual version bumps. I wanted a CLI that enforces the workflow automatically.`,
+      priorArt: `git-flow exists but it's heavyweight and opinionated about the full branching model. Commitizen handles commit messages but not branching. Nothing handled the full workflow from branch creation to release in a lightweight way.`,
+      designDecisions: `Chose Commander.js over yargs for its cleaner API and better TypeScript support. Kept the config in package.json under a "gitflow" key so it travels with the repo. Made all conventions overridable so teams aren't forced into my defaults.`,
+      architecture: `Three main modules: branch manager (creates/validates branch names), commit linter (enforces conventional commits), and release manager (bumps version, tags, generates changelog). Each is independently usable as a library.`,
+      reflection: `I'd add a --dry-run flag to every command. Teams are cautious about new CLI tools and being able to preview what would happen without executing it would lower the adoption barrier significantly.`,
     },
   },
   {
@@ -76,13 +76,13 @@ export const projects: Project[] = [
     stack: 'Go · TCP/UDP · Custom Protocol',
     concepts:
       'Peer discovery · Chunked transfer · NAT traversal · SHA-256 integrity',
-    repo: 'In Progress....',
+    repo: 'https://github.com/joss12',
     content: {
-      problem: `In Progress....`,
-      priorArt: `In Progress....`,
-      designDecisions: `In Progress....`,
-      architecture: `In Progress....`,
-      reflection: `In Progress....`,
+      problem: `Most teams enforce Git conventions through code reviews and verbal agreements. This breaks down at scale — inconsistent branch names, missing commit prefixes, manual version bumps. I wanted a CLI that enforces the workflow automatically.`,
+      priorArt: `git-flow exists but it's heavyweight and opinionated about the full branching model. Commitizen handles commit messages but not branching. Nothing handled the full workflow from branch creation to release in a lightweight way.`,
+      designDecisions: `Chose Commander.js over yargs for its cleaner API and better TypeScript support. Kept the config in package.json under a "gitflow" key so it travels with the repo. Made all conventions overridable so teams aren't forced into my defaults.`,
+      architecture: `Three main modules: branch manager (creates/validates branch names), commit linter (enforces conventional commits), and release manager (bumps version, tags, generates changelog). Each is independently usable as a library.`,
+      reflection: `I'd add a --dry-run flag to every command. Teams are cautious about new CLI tools and being able to preview what would happen without executing it would lower the adoption barrier significantly.`,
     },
   },
 
@@ -118,17 +118,17 @@ export const projects: Project[] = [
       'A DNS resolver built over raw UDP sockets in Go — manual packet crafting and parsing following RFC 1035, with no external DNS libraries.',
     tag: 'Go',
     tagColor: 'text-cyan-400 bg-cyan-400/10',
-    status: 'wip',
+    status: 'complete',
     stack: 'Go · UDP · RFC 1035',
     concepts:
       'UDP sockets · Binary packet encoding · RFC 1035 · Recursive resolution',
-    repo: 'In Progress....',
+    repo: 'https://github.com/joss12',
     content: {
-      problem: `In Progress....`,
-      priorArt: `In Progress....`,
-      designDecisions: `In Progress....`,
-      architecture: `In Progress....`,
-      reflection: `In Progress....`,
+      problem: `Most teams enforce Git conventions through code reviews and verbal agreements. This breaks down at scale — inconsistent branch names, missing commit prefixes, manual version bumps. I wanted a CLI that enforces the workflow automatically.`,
+      priorArt: `git-flow exists but it's heavyweight and opinionated about the full branching model. Commitizen handles commit messages but not branching. Nothing handled the full workflow from branch creation to release in a lightweight way.`,
+      designDecisions: `Chose Commander.js over yargs for its cleaner API and better TypeScript support. Kept the config in package.json under a "gitflow" key so it travels with the repo. Made all conventions overridable so teams aren't forced into my defaults.`,
+      architecture: `Three main modules: branch manager (creates/validates branch names), commit linter (enforces conventional commits), and release manager (bumps version, tags, generates changelog). Each is independently usable as a library.`,
+      reflection: `I'd add a --dry-run flag to every command. Teams are cautious about new CLI tools and being able to preview what would happen without executing it would lower the adoption barrier significantly.`,
     },
   },
 
@@ -169,6 +169,7 @@ export type OtherProject = {
   tag: string;
   tagColor: string;
   repo: string;
+  package?: string;
 };
 
 export const otherProjects: OtherProject[] = [
@@ -180,7 +181,7 @@ export const otherProjects: OtherProject[] = [
       'Built to deeply understand how Node.js schedules async work. Most engineers use the event loop daily without knowing exactly when microtasks run vs macrotasks.',
     tag: 'JavaScript',
     tagColor: 'text-yellow-400 bg-yellow-400/10',
-    repo: 'https://github.com/joss12',
+    repo: 'https://github.com/joss12/Event-Loop-Simulator',
   },
   {
     name: 'Diff DOM Mini Engine',
@@ -190,7 +191,7 @@ export const otherProjects: OtherProject[] = [
       "Written to understand how React's reconciler works under the hood. Building it yourself forces you to think about tree traversal, key heuristics, and minimal mutations.",
     tag: 'TypeScript',
     tagColor: 'text-blue-400 bg-blue-400/10',
-    repo: 'https://github.com/joss12',
+    repo: 'https://github.com/joss12/Diff-DOM-mini-engine',
   },
   {
     name: 'AST Practice',
@@ -200,7 +201,7 @@ export const otherProjects: OtherProject[] = [
       'Practice ground for working with abstract syntax trees — parsing, walking, and transforming code programmatically. Directly fed into the Ptolemy Lang interpreter.',
     tag: 'Go · JS',
     tagColor: 'text-cyan-400 bg-cyan-400/10',
-    repo: 'https://github.com/joss12',
+    repo: 'https://github.com/joss12/AST-Practice-In-Js-Ts-and-Golanng',
   },
   {
     name: 'P2P Terminal Messenger',
@@ -208,9 +209,10 @@ export const otherProjects: OtherProject[] = [
       'A terminal-based peer-to-peer chat application over raw TCP with no central server.',
     purpose:
       'Built to learn NAT traversal and direct peer connections before tackling the P2P file sharing project. Kept it simple — just stdin/stdout over a socket.',
-    tag: 'Go',
+    tag: 'JavaScript',
     tagColor: 'text-cyan-400 bg-cyan-400/10',
-    repo: 'https://github.com/joss12',
+    repo: 'https://github.com/joss12/p2p-terminal-messenger',
+    package: 'peermsg — Local Peer-to-Peer Messenger (LAN/Wi-Fi)',
   },
   {
     name: 'Reactive Core',
@@ -218,8 +220,8 @@ export const otherProjects: OtherProject[] = [
       'A minimal reactivity system — signals, computed values, and effects — from scratch.',
     purpose:
       'Built to understand how Vue 3 and SolidJS reactivity works internally. Implements dependency tracking, lazy evaluation, and automatic effect re-runs without a framework.',
-    tag: 'TypeScript',
+    tag: 'Javascript',
     tagColor: 'text-blue-400 bg-blue-400/10',
-    repo: 'https://github.com/joss12',
+    repo: 'https://github.com/joss12/reactive-core',
   },
 ];
