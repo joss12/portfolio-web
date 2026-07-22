@@ -134,12 +134,13 @@ export default function Home() {
                       {t('hero.cta_contact')}
                     </Link>
                     <a
-                      href="#projects"
-                      className="text-xs text-neutral-500 transition-colors hover:text-neutral-300"
-                    >
-                      {t('hero.cta_projects')}
-                    </a>
-                  </div>
+  href="https://github.com/joss12"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="text-xs text-neutral-500 transition-colors hover:text-cyan-300"
+>
+  {t('hero.cta_github')}
+</a>                  </div>
                 )}
               </div>
             </div>

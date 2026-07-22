@@ -13,7 +13,8 @@
     "focus": "Network programming · Protocol implementations · CLI tooling",
     "status": "Open to backend Development roles · Seoul & remote",
     "cta_contact": "get in touch",
-    "cta_projects": "view projects ↓"
+    "cta_projects": "view projects ↓",
+    "cta_github": "GitHub ↗"
   },
   "sections": {
     "projects": "Projects",
@@ -31,6 +32,7 @@
     "p3": "I focus on building reliable, production-ready backend systems, with a strong emphasis on performance and system design. Currently, I’m looking to contribute to a team where I can continue growing my skills in distributed systems and backend architecture.",
     "cta_contact": "Get in touch",
     "cta_resume": "Download Resume ↓",
+    "cta_projects": "view projects ↓",
     "cta_github": "GitHub ↗"
   },
   "contact": {

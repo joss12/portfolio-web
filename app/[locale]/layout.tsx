@@ -18,11 +18,47 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.eddymouity.dev'),
   title: {
     default: 'Eddy Mouity — Backend Engineer',
     template: '%s · Eddy Mouity',
   },
-  description: 'Backend engineering case studies by Eddy Mouity.',
+  description:
+    'Backend engineer based in Seoul, building production-ready systems with Go, TypeScript, Node.js, PostgreSQL, Redis, and distributed systems.',
+  keywords: [
+    'Eddy Mouity',
+    'Backend Engineer',
+    'Go Developer',
+    'TypeScript Developer',
+    'Node.js Developer',
+    'Software Engineer Seoul',
+    'Distributed Systems',
+    'API Development',
+  ],
+  authors: [{ name: 'Eddy Mouity' }],
+  creator: 'Eddy Mouity',
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    type: 'website',
+    url: 'https://www.eddymouity.dev',
+    title: 'Eddy Mouity — Backend Engineer',
+    description:
+      'Backend engineer building production-ready systems with Go, TypeScript, Node.js, PostgreSQL, Redis, and distributed systems.',
+    siteName: 'Eddy Mouity',
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Eddy Mouity — Backend Engineer',
+    description:
+      'Backend engineer building production-ready systems with Go, TypeScript, Node.js, PostgreSQL, Redis, and distributed systems.',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default async function LocaleLayout({

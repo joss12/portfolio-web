@@ -27,7 +27,7 @@ const nextConfig: NextConfig = {
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
             "font-src 'self' https://fonts.gstatic.com",
             "img-src 'self' data: blob:",
-            "connect-src 'self' https://portfolio-backend-frim.onrender.com",
+            "connect-src 'self' https://api.eddymouity.dev",
             "frame-ancestors 'none'",
           ].join('; '),
         },

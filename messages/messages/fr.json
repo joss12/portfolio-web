@@ -31,6 +31,7 @@
     "p3": "J'aime particulièrement concevoir des API REST performantes et développer des outils CLI avec l'écosystème JavaScript/TypeScript. Parallèlement, j'approfondis mes compétences en Golang pour architecturer des microservices et des services gRPC, afin de proposer des solutions efficaces systèmes de backend, prêtes pour la production.",
     "cta_contact": "Me contacter",
     "cta_resume": "Télécharger le CV ↓",
+    "cta_projects": "view projects ↓",
     "cta_github": "GitHub ↗"
   },
   "contact": {

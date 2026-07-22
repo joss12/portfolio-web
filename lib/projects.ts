@@ -109,13 +109,15 @@ export const projects: Project[] = [
       reflection: `Building Ptolemy provided hands-on insight into how programming languages work under the hood, from parsing to execution. It highlighted the importance of clear structure, simplicity, and the trade-offs involved in language design.`,
     },
   },
+
+  //DNS revsolver
   {
     slug: 'dns-resolver',
     name: 'DNS Resolver',
     description:
       'DNS resolver over raw UDP — manual packet crafting, RFC 1035.',
     tagline:
-      'A DNS resolver built over raw UDP sockets in Go — manual packet crafting and parsing following RFC 1035, with no external DNS libraries.',
+      'A DNS resolver in Go to understand DNS below the standard library level. It manually constructs DNS packets, sends them over UDP, parses the binary response, and supports iterative resolution through the DNS hierarchy.',
     tag: 'Go',
     tagColor: 'text-cyan-400 bg-cyan-400/10',
     status: 'complete',
@@ -124,11 +126,11 @@ export const projects: Project[] = [
       'UDP sockets · Binary packet encoding · RFC 1035 · Recursive resolution',
     repo: 'https://github.com/joss12',
     content: {
-      problem: `Most teams enforce Git conventions through code reviews and verbal agreements. This breaks down at scale — inconsistent branch names, missing commit prefixes, manual version bumps. I wanted a CLI that enforces the workflow automatically.`,
+      problem: `DNS is the distributed naming system that maps domain names to IP addresses so clients can locate servers on the network.`,
       priorArt: `git-flow exists but it's heavyweight and opinionated about the full branching model. Commitizen handles commit messages but not branching. Nothing handled the full workflow from branch creation to release in a lightweight way.`,
-      designDecisions: `Chose Commander.js over yargs for its cleaner API and better TypeScript support. Kept the config in package.json under a "gitflow" key so it travels with the repo. Made all conventions overridable so teams aren't forced into my defaults.`,
-      architecture: `Three main modules: branch manager (creates/validates branch names), commit linter (enforces conventional commits), and release manager (bumps version, tags, generates changelog). Each is independently usable as a library.`,
-      reflection: `I'd add a --dry-run flag to every command. Teams are cautious about new CLI tools and being able to preview what would happen without executing it would lower the adoption barrier significantly.`,
+      designDecisions: `I separated the project into encoding, transport, decoding, and resolver layers to keep the DNS workflow modular and easier to debug. I also implemented reusable parsing functions for resource records to reduce duplication and keep the protocol handling consistent.`,
+      architecture: `The architecture is organized around the DNS resolution pipeline: packet encoding, UDP communication, packet decoding, and resolver orchestration. The CLI layer handles user input and presentation, while the internal DNS package contains the protocol and resolution logic.`,
+      reflection: `This project helped me understand DNS far beyond simple library lookups. The most valuable lessons came from working directly with binary packet structures, compression pointers, iterative referrals, and resolver behavior.`,
     },
   },
 
