@@ -150,19 +150,13 @@ export const projects: Project[] = [
   tag: "FinTech",
 
   tagColor: "text-emerald-400 bg-emerald-400/10",
-
   status: "complete",
-
   stack:
     "Go · React · TypeScript · PostgreSQL · Redis · Docker · Chi · Vite · Tailwind CSS",
-
   concepts:
     "REST APIs · BIN lookup · Card brand detection · Risk scoring · Validation pipeline · Dashboard analytics · Responsive UI · PostgreSQL · Redis · Docker",
 
-  live: "https://card-check-check.vercel.app",
-
-  repo: "https://github.com/joss12/cardcheck-web",
-
+  repo: "https://card-check-check.vercel.app",
   content: {
     problem: `
 Modern payment systems perform much more than a simple Luhn check. They identify the issuing bank, determine the payment network, verify the issuing country, evaluate transaction risk, and apply multiple validation rules before approving or declining a transaction.
