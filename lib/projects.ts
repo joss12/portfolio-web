@@ -9,6 +9,7 @@ export type Project = {
   stack: string;
   concepts: string;
   repo: string;
+  live?: string;
   swagger?: string;
   content: {
     problem: string;
@@ -133,6 +134,86 @@ export const projects: Project[] = [
       reflection: `This project helped me understand DNS far beyond simple library lookups. The most valuable lessons came from working directly with binary packet structures, compression pointers, iterative referrals, and resolver behavior.`,
     },
   },
+
+  // Card Check
+  {
+  slug: "cardcheck",
+
+  name: "cardCheck",
+
+  description:
+    "A production-ready full-stack card validation simulator with BIN intelligence, transaction analysis, dashboard analytics, and validation history.",
+
+  tagline:
+    "A modern fintech-inspired platform that simulates how payment systems validate cards, analyze transaction risk, retrieve BIN information, determine approval decisions, and visualize every validation step through a professional dashboard.",
+
+  tag: "FinTech",
+
+  tagColor: "text-emerald-400 bg-emerald-400/10",
+
+  status: "complete",
+
+  stack:
+    "Go · React · TypeScript · PostgreSQL · Redis · Docker · Chi · Vite · Tailwind CSS",
+
+  concepts:
+    "REST APIs · BIN lookup · Card brand detection · Risk scoring · Validation pipeline · Dashboard analytics · Responsive UI · PostgreSQL · Redis · Docker",
+
+  live: "https://card-check-check.vercel.app",
+
+  repo: "https://github.com/joss12/cardcheck-web",
+
+  content: {
+    problem: `
+Modern payment systems perform much more than a simple Luhn check. They identify the issuing bank, determine the payment network, verify the issuing country, evaluate transaction risk, and apply multiple validation rules before approving or declining a transaction.
+
+Most public examples only demonstrate isolated concepts such as card number validation or BIN lookups. I wanted to build a complete educational platform that simulates the workflow of a payment validation engine without processing real financial transactions.
+`,
+
+    priorArt: `
+Many online credit-card validation tools stop after checking the Luhn algorithm or identifying the card network. They rarely expose how validation decisions are made or how different verification steps contribute to the final outcome.
+
+cardCheck combines BIN intelligence, issuer information, country verification, configurable validation rules, transaction history, dashboard analytics, and an interactive user interface into a single full-stack application designed for developers and learners.
+`,
+
+    designDecisions: `
+The project is split into independent frontend and backend repositories to keep responsibilities clearly separated.
+
+The backend focuses on business logic, validation rules, REST APIs, PostgreSQL persistence, Redis caching, and dashboard statistics.
+
+The frontend consumes these APIs through a dedicated service layer while keeping presentation components independent from business logic. Validation is represented as a step-by-step pipeline so users can observe every verification stage instead of receiving only a final approval or decline.
+`,
+
+    architecture: `
+The backend is implemented in Go using Chi and follows a layered architecture composed of HTTP handlers, services, repositories, domain models, PostgreSQL, and Redis.
+
+The frontend is built with React, TypeScript, and Vite using reusable components, React Router, strongly typed API models, responsive layouts, and animated user interactions.
+
+Major frontend modules include:
+
+• Landing page
+• Dashboard
+• Card validation
+• Live credit card preview
+• Card flip animation
+• Validation pipeline
+• Validation history
+• Transaction details
+• Analytics dashboard
+• Custom 404 page
+
+The frontend communicates with the backend through REST APIs while remaining completely decoupled from persistence and business logic.
+`,
+
+    reflection: `
+Building cardCheck significantly strengthened my understanding of production full-stack application development.
+
+Beyond implementing APIs and user interfaces, the project required designing maintainable architectures, creating reusable React components, structuring Go services, integrating PostgreSQL and Redis, managing asynchronous frontend state, designing realistic validation workflows, handling deployment, configuring CORS, and delivering a responsive user experience.
+
+The most valuable takeaway was learning how frontend and backend systems collaborate to create software that feels cohesive, scalable, and maintainable.
+`,
+  },
+},
 
   {
     slug: 'smartcart-backend',
