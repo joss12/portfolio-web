@@ -64,41 +64,35 @@ export const projects: Project[] = [
       reflection: `I'd add a --dry-run flag to every command. Teams are cautious about new CLI tools and being able to preview what would happen without executing it would lower the adoption barrier significantly.`,
     },
   },
- {
-  slug: 'web-crawler',
-  name: 'Concurrent Web Crawler',
+  {
+    slug: 'web-crawler',
+    name: 'Concurrent Web Crawler',
 
-  description:
-    'Full-stack concurrent website crawler with crawl controls, result analysis, graph visualization, exports, and production-style backend safeguards.',
+    description:
+      'Full-stack concurrent website crawler with crawl controls, result analysis, graph visualization, exports, and production-style backend safeguards.',
 
-  tagline:
-    'A concurrent web crawler built with Go and Next.js — featuring bounded worker pools, crawl cancellation, SSRF protection, result analytics, interactive graph visualization, and Dockerized deployment.',
+    tagline:
+      'A concurrent web crawler built with Go and Next.js — featuring bounded worker pools, crawl cancellation, SSRF protection, result analytics, interactive graph visualization, and Dockerized deployment.',
 
-  tag: 'Go',
-  tagColor: 'text-cyan-400 bg-cyan-400/10',
+    tag: 'Go',
+    tagColor: 'text-cyan-400 bg-cyan-400/10',
+    status: 'complete',
+    stack: 'Go · Next.js · React · TypeScript · Docker · React Flow',
+    concepts:
+      'Worker pools · Context cancellation · SSRF protection · Request IDs · Panic recovery · Crawling analytics · Graph visualization · Docker',
 
-  status: 'complete',
+    repo: 'https://web-crawler-frontend-ep3r.onrender.com',
 
-  stack:
-    'Go · Next.js · React · TypeScript · Docker · React Flow',
+    content: {
+      problem: `I wanted to build a crawler that went beyond recursively fetching links. The goal was to understand bounded concurrency in Go, request cancellation, URL normalization, crawl limits, failure handling, and how to expose that backend through a useful full-stack interface.`,
 
-  concepts:
-    'Worker pools · Context cancellation · SSRF protection · Request IDs · Panic recovery · Crawling analytics · Graph visualization · Docker',
+      priorArt: `Many crawler examples stop at recursively fetching pages or spawning goroutines without much control over concurrency, cancellation, security, or observability. This project intentionally adds those concerns so the crawler behaves more like a real service rather than a small scraping script.`,
 
-  repo: 'https://github.com/joss12/web-crawler',
-
-  live: 'https://web-crawler-frontend-ep3r.onrender.com',
-
-  content: {
-    problem: `I wanted to build a crawler that went beyond recursively fetching links. The goal was to understand bounded concurrency in Go, request cancellation, URL normalization, crawl limits, failure handling, and how to expose that backend through a useful full-stack interface.`,
-
-    priorArt: `Many crawler examples stop at recursively fetching pages or spawning goroutines without much control over concurrency, cancellation, security, or observability. This project intentionally adds those concerns so the crawler behaves more like a real service rather than a small scraping script.`,
-
-    designDecisions: `The crawler uses a bounded worker pool instead of creating an unbounded goroutine per URL. Crawls are organized by depth, context cancellation propagates from the browser through the HTTP request into the Go workers, and public target validation blocks localhost and private network addresses to reduce SSRF risk.
+      designDecisions: `The crawler uses a bounded worker pool instead of creating an unbounded goroutine per URL. Crawls are organized by depth, context cancellation propagates from the browser through the HTTP request into the Go workers, and public target validation blocks localhost and private network addresses to reduce SSRF risk.
 
 The API also adds structured errors, request IDs, panic recovery, request logging, crawl limits, and graceful shutdown.`,
 
-    architecture: `The backend is written in Go and is split into crawler and HTTP server packages.
+      architecture: `The backend is written in Go and is split into crawler and HTTP server packages.
 
 The crawler handles URL normalization, HTML parsing, bounded concurrency, crawl depth, page limits, delays, cancellation, and target validation.
 
@@ -108,11 +102,11 @@ The frontend is built with Next.js, React, TypeScript, Tailwind CSS, and React F
 
 Both services are Dockerized and deployed separately on Render.`,
 
-    reflection: `The most valuable part of this project was seeing how concurrency decisions affect the entire application. Worker limits, cancellation, request lifetime, redirects, URL validation, and error propagation all had to fit together correctly.
+      reflection: `The most valuable part of this project was seeing how concurrency decisions affect the entire application. Worker limits, cancellation, request lifetime, redirects, URL validation, and error propagation all had to fit together correctly.
 
 It also reinforced that a useful backend project becomes much stronger when the frontend exposes the underlying behavior clearly instead of hiding it behind a single submit button.`,
+    },
   },
-},
   //Ptolemy lang
   {
     slug: 'ptolemy-lang',
@@ -163,40 +157,40 @@ It also reinforced that a useful backend project becomes much stronger when the 
 
   // Card Check
   {
-  slug: "cardcheck",
+    slug: 'cardcheck',
 
-  name: "cardCheck",
+    name: 'cardCheck',
 
-  description:
-    "A production-ready full-stack card validation simulator with BIN intelligence, transaction analysis, dashboard analytics, and validation history.",
+    description:
+      'A production-ready full-stack card validation simulator with BIN intelligence, transaction analysis, dashboard analytics, and validation history.',
 
-  tagline:
-    "A modern fintech-inspired platform that simulates how payment systems validate cards, analyze transaction risk, retrieve BIN information, determine approval decisions, and visualize every validation step through a professional dashboard.",
+    tagline:
+      'A modern fintech-inspired platform that simulates how payment systems validate cards, analyze transaction risk, retrieve BIN information, determine approval decisions, and visualize every validation step through a professional dashboard.',
 
-  tag: "FinTech",
+    tag: 'FinTech',
 
-  tagColor: "text-emerald-400 bg-emerald-400/10",
-  status: "complete",
-  stack:
-    "Go · React · TypeScript · PostgreSQL · Redis · Docker · Chi · Vite · Tailwind CSS",
-  concepts:
-    "REST APIs · BIN lookup · Card brand detection · Risk scoring · Validation pipeline · Dashboard analytics · Responsive UI · PostgreSQL · Redis · Docker",
+    tagColor: 'text-emerald-400 bg-emerald-400/10',
+    status: 'complete',
+    stack:
+      'Go · React · TypeScript · PostgreSQL · Redis · Docker · Chi · Vite · Tailwind CSS',
+    concepts:
+      'REST APIs · BIN lookup · Card brand detection · Risk scoring · Validation pipeline · Dashboard analytics · Responsive UI · PostgreSQL · Redis · Docker',
 
-  repo: "https://card-check-check.vercel.app",
-  content: {
-    problem: `
+    repo: 'https://card-check-check.vercel.app',
+    content: {
+      problem: `
 Modern payment systems perform much more than a simple Luhn check. They identify the issuing bank, determine the payment network, verify the issuing country, evaluate transaction risk, and apply multiple validation rules before approving or declining a transaction.
 
 Most public examples only demonstrate isolated concepts such as card number validation or BIN lookups. I wanted to build a complete educational platform that simulates the workflow of a payment validation engine without processing real financial transactions.
 `,
 
-    priorArt: `
+      priorArt: `
 Many online credit-card validation tools stop after checking the Luhn algorithm or identifying the card network. They rarely expose how validation decisions are made or how different verification steps contribute to the final outcome.
 
 cardCheck combines BIN intelligence, issuer information, country verification, configurable validation rules, transaction history, dashboard analytics, and an interactive user interface into a single full-stack application designed for developers and learners.
 `,
 
-    designDecisions: `
+      designDecisions: `
 The project is split into independent frontend and backend repositories to keep responsibilities clearly separated.
 
 The backend focuses on business logic, validation rules, REST APIs, PostgreSQL persistence, Redis caching, and dashboard statistics.
@@ -204,7 +198,7 @@ The backend focuses on business logic, validation rules, REST APIs, PostgreSQL p
 The frontend consumes these APIs through a dedicated service layer while keeping presentation components independent from business logic. Validation is represented as a step-by-step pipeline so users can observe every verification stage instead of receiving only a final approval or decline.
 `,
 
-    architecture: `
+      architecture: `
 The backend is implemented in Go using Chi and follows a layered architecture composed of HTTP handlers, services, repositories, domain models, PostgreSQL, and Redis.
 
 The frontend is built with React, TypeScript, and Vite using reusable components, React Router, strongly typed API models, responsive layouts, and animated user interactions.
@@ -225,15 +219,15 @@ Major frontend modules include:
 The frontend communicates with the backend through REST APIs while remaining completely decoupled from persistence and business logic.
 `,
 
-    reflection: `
+      reflection: `
 Building cardCheck significantly strengthened my understanding of production full-stack application development.
 
 Beyond implementing APIs and user interfaces, the project required designing maintainable architectures, creating reusable React components, structuring Go services, integrating PostgreSQL and Redis, managing asynchronous frontend state, designing realistic validation workflows, handling deployment, configuring CORS, and delivering a responsive user experience.
 
 The most valuable takeaway was learning how frontend and backend systems collaborate to create software that feels cohesive, scalable, and maintainable.
 `,
+    },
   },
-},
 
   {
     slug: 'smartcart-backend',
