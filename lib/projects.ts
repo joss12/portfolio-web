@@ -64,29 +64,55 @@ export const projects: Project[] = [
       reflection: `I'd add a --dry-run flag to every command. Teams are cautious about new CLI tools and being able to preview what would happen without executing it would lower the adoption barrier significantly.`,
     },
   },
-  {
-    slug: 'p2p-file-sharing',
-    name: 'P2P File Sharing',
-    description:
-      'Peer-to-peer file transfer — chunked transfer, peer discovery, NAT traversal.',
-    tagline:
-      'A peer-to-peer file transfer system in pure Go — covering chunked transfer, peer discovery, NAT traversal, and integrity verification.',
-    tag: 'Go',
-    tagColor: 'text-cyan-400 bg-cyan-400/10',
-    status: 'wip',
-    stack: 'Go · TCP/UDP · Custom Protocol',
-    concepts:
-      'Peer discovery · Chunked transfer · NAT traversal · SHA-256 integrity',
-    repo: 'https://github.com/joss12',
-    content: {
-      problem: `Most teams enforce Git conventions through code reviews and verbal agreements. This breaks down at scale — inconsistent branch names, missing commit prefixes, manual version bumps. I wanted a CLI that enforces the workflow automatically.`,
-      priorArt: `git-flow exists but it's heavyweight and opinionated about the full branching model. Commitizen handles commit messages but not branching. Nothing handled the full workflow from branch creation to release in a lightweight way.`,
-      designDecisions: `Chose Commander.js over yargs for its cleaner API and better TypeScript support. Kept the config in package.json under a "gitflow" key so it travels with the repo. Made all conventions overridable so teams aren't forced into my defaults.`,
-      architecture: `Three main modules: branch manager (creates/validates branch names), commit linter (enforces conventional commits), and release manager (bumps version, tags, generates changelog). Each is independently usable as a library.`,
-      reflection: `I'd add a --dry-run flag to every command. Teams are cautious about new CLI tools and being able to preview what would happen without executing it would lower the adoption barrier significantly.`,
-    },
-  },
+ {
+  slug: 'web-crawler',
+  name: 'Concurrent Web Crawler',
 
+  description:
+    'Full-stack concurrent website crawler with crawl controls, result analysis, graph visualization, exports, and production-style backend safeguards.',
+
+  tagline:
+    'A concurrent web crawler built with Go and Next.js — featuring bounded worker pools, crawl cancellation, SSRF protection, result analytics, interactive graph visualization, and Dockerized deployment.',
+
+  tag: 'Go',
+  tagColor: 'text-cyan-400 bg-cyan-400/10',
+
+  status: 'complete',
+
+  stack:
+    'Go · Next.js · React · TypeScript · Docker · React Flow',
+
+  concepts:
+    'Worker pools · Context cancellation · SSRF protection · Request IDs · Panic recovery · Crawling analytics · Graph visualization · Docker',
+
+  repo: 'https://github.com/joss12/web-crawler',
+
+  live: 'https://web-crawler-frontend-ep3r.onrender.com',
+
+  content: {
+    problem: `I wanted to build a crawler that went beyond recursively fetching links. The goal was to understand bounded concurrency in Go, request cancellation, URL normalization, crawl limits, failure handling, and how to expose that backend through a useful full-stack interface.`,
+
+    priorArt: `Many crawler examples stop at recursively fetching pages or spawning goroutines without much control over concurrency, cancellation, security, or observability. This project intentionally adds those concerns so the crawler behaves more like a real service rather than a small scraping script.`,
+
+    designDecisions: `The crawler uses a bounded worker pool instead of creating an unbounded goroutine per URL. Crawls are organized by depth, context cancellation propagates from the browser through the HTTP request into the Go workers, and public target validation blocks localhost and private network addresses to reduce SSRF risk.
+
+The API also adds structured errors, request IDs, panic recovery, request logging, crawl limits, and graceful shutdown.`,
+
+    architecture: `The backend is written in Go and is split into crawler and HTTP server packages.
+
+The crawler handles URL normalization, HTML parsing, bounded concurrency, crawl depth, page limits, delays, cancellation, and target validation.
+
+The server layer exposes health and crawl endpoints with CORS, request IDs, structured JSON errors, recovery middleware, logging, and graceful shutdown.
+
+The frontend is built with Next.js, React, TypeScript, Tailwind CSS, and React Flow. It provides crawl configuration, loading and cancellation states, summary metrics, HTTP status and depth breakdowns, search, filtering, sorting, pagination, page details, JSON/CSV export, and an interactive crawl graph.
+
+Both services are Dockerized and deployed separately on Render.`,
+
+    reflection: `The most valuable part of this project was seeing how concurrency decisions affect the entire application. Worker limits, cancellation, request lifetime, redirects, URL validation, and error propagation all had to fit together correctly.
+
+It also reinforced that a useful backend project becomes much stronger when the frontend exposes the underlying behavior clearly instead of hiding it behind a single submit button.`,
+  },
+},
   //Ptolemy lang
   {
     slug: 'ptolemy-lang',
