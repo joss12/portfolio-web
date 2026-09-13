@@ -3,10 +3,10 @@
 import { useEffect, useRef, useState } from 'react';
 
 const skills = [
-  { category: 'Languages', items: ['JavaScript', 'TypeScript', 'Go'] },
+  { category: 'Languages', items: ['JavaScript', 'TypeScript', 'Go', 'Java'] },
   {
     category: 'Backend',
-    items: ['Node.js', 'Express', 'Chi', 'REST APIs', 'WebSockets', 'gRPC'],
+    items: ['Node.js', 'Express', 'Chi', 'Fiber', 'Spring Boot', 'REST API', 'WebSockets'],
   },
   {
     category: 'Databases',
