@@ -81,7 +81,7 @@ export const projects: Project[] = [
     concepts:
       'Worker pools · Context cancellation · SSRF protection · Request IDs · Panic recovery · Crawling analytics · Graph visualization · Docker',
 
-    repo: 'https://web-crawler-frontend-ep3r.onrender.com',
+    repo: 'http://web-crawler-frontend-ep3r.onrender.com',
 
     content: {
       problem: `I wanted to build a crawler that went beyond recursively fetching links. The goal was to understand bounded concurrency in Go, request cancellation, URL normalization, crawl limits, failure handling, and how to expose that backend through a useful full-stack interface.`,

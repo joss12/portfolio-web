@@ -24,15 +24,15 @@ export const metadata: Metadata = {
     template: '%s · Eddy Mouity',
   },
   description:
-    'Backend engineer based in Seoul, building production-ready systems with Go, TypeScript, Node.js, PostgreSQL, Redis, and distributed systems.',
+    'Backend engineer based in Seoul, building production-ready systems with Go, TypeScript, Node.js, PostgreSQL, Java, Redis, and distributed systems.',
   keywords: [
     'Eddy Mouity',
     'Backend Engineer',
     'Go Developer',
     'TypeScript Developer',
     'Node.js Developer',
-    'Software Engineer Seoul',
-    'Distributed Systems',
+    'Java Developer',
+    'Software Engineer Seoul & Gyeonggi-do',
     'API Development',
   ],
   authors: [{ name: 'Eddy Mouity' }],
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     url: 'https://www.eddymouity.dev',
     title: 'Eddy Mouity — Backend Engineer',
     description:
-      'Backend engineer building production-ready systems with Go, TypeScript, Node.js, PostgreSQL, Redis, and distributed systems.',
+      'Backend engineer building production-ready systems with Go, TypeScript, Node.js, PostgreSQL, Java, Redis, and distributed systems.',
     siteName: 'Eddy Mouity',
     locale: 'en_US',
   },
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     card: 'summary',
     title: 'Eddy Mouity — Backend Engineer',
     description:
-      'Backend engineer building production-ready systems with Go, TypeScript, Node.js, PostgreSQL, Redis, and distributed systems.',
+      'Backend engineer building production-ready systems with Go, TypeScript, Node.js, PostgreSQL, Java, Redis, and distributed systems.',
   },
   robots: {
     index: true,
