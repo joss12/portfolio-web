@@ -80,9 +80,15 @@ export default async function ProjectPage({
         {[
           { label: t('stack'), value: project.stack },
           { label: t('repo'), value: project.repo, isLink: true },
+
+          ...(project.live
+            ? [{ label: 'Live Demo', value: project.live, isLink: true }]
+            : []),
+
           ...(project.swagger
             ? [{ label: 'Live Docs', value: project.swagger, isLink: true }]
             : []),
+
           {
             label: t('status'),
             value: project.status === 'complete' ? t('complete') : t('wip'),
