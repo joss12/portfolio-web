@@ -22,27 +22,34 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    slug: 'gitflow-cli',
-    name: 'GitFlow CLI',
+    slug: 'virtual-lab',
+    name: 'Virtual Lab',
     description:
-      'TypeScript CLI enforcing Git branching conventions and release workflows.',
+      'Interactive computer science learning platform with 3D hardware simulations and browser-based programming exercises.',
     tagline:
-      'A TypeScript CLI that enforces Git branching conventions, automates versioning, and streamlines release workflows.',
-    tag: 'TypeScript',
+      'Explore computer hardware in 3D and learn Python, JavaScript, and SQL through guided lessons and in-browser code execution.',
+    tag: 'Next.js',
     tagColor: 'text-blue-400 bg-blue-400/10',
     status: 'complete',
-    stack: 'TypeScript · Node.js · Commander.js',
+    stack:
+      'Next.js 16 · TypeScript · Three.js · React Three Fiber · Tailwind CSS · Zustand · Pyodide · sql.js',
     concepts:
-      'Git internals · Conventional commits · Semver · Release automation',
-    repo: 'https://github.com/joss12/GitFlow-CLI',
+      'Interactive 3D · WebAssembly · Client-side code execution · Computer architecture · REST APIs · i18n',
+    repo: 'https://github.com/joss12/Virtual-Lab-web',
+    live: 'https://virtual-lab-web.vercel.app',
     content: {
-      problem: `Most teams enforce Git conventions through code reviews and verbal agreements. This breaks down at scale — inconsistent branch names, missing commit prefixes, manual version bumps. I wanted a CLI that enforces the workflow automatically.`,
-      priorArt: `git-flow exists but it's heavyweight and opinionated about the full branching model. Commitizen handles commit messages but not branching. Nothing handled the full workflow from branch creation to release in a lightweight way.`,
-      designDecisions: `Chose Commander.js over yargs for its cleaner API and better TypeScript support. Kept the config in package.json under a "gitflow" key so it travels with the repo. Made all conventions overridable so teams aren't forced into my defaults.`,
-      architecture: `Three main modules: branch manager (creates/validates branch names), commit linter (enforces conventional commits), and release manager (bumps version, tags, generates changelog). Each is independently usable as a library.`,
-      reflection: `I'd add a --dry-run flag to every command. Teams are cautious about new CLI tools and being able to preview what would happen without executing it would lower the adoption barrier significantly.`,
+      problem: `Learning computer architecture and programming often requires switching between static diagrams, tutorials, and separate development environments. I wanted to create a virtual lab where students could explore hardware, visualize data flow, and practice programming without installing tools.`,
+
+      priorArt: `Many coding platforms emphasize exercises without connecting them to the hardware beneath the software, while hardware tutorials often rely on static illustrations. Virtual Lab brings 3D component exploration, programming lessons, quizzes, and reference material together in one application.`,
+
+      designDecisions: `I chose Next.js 16 and TypeScript for a maintainable application, Three.js with React Three Fiber for interactive 3D hardware, and lazy-loaded browser runtimes for programming exercises. Pyodide runs Python through WebAssembly, sql.js provides SQLite in the browser, and JavaScript exercises use a Function-based runner with captured console output. Zustand manages client state, next-intl supports English and French, and JWT authentication integrates with a separate REST API.`,
+
+      architecture: `Localized Next.js App Router pages organize hardware study, the interactive 3D lab, quizzes, and programming tracks. Reusable React components present lessons and hardware visualizations; Markdown content powers guides and projects. A client-side execution layer supports Python, JavaScript, and SQL. Zustand manages local application state, while a separate REST API handles authentication and persistent progress and leaderboard data.`,
+
+      reflection: `Building Virtual Lab helped me connect interactive graphics, frontend architecture, and multiple browser-based programming environments. Lazy-loading execution engines was important for reducing initial load. I would expand the guided projects and 3D simulations, optimize lower-powered devices, and strengthen isolation for untrusted JavaScript execution; a Function-based runner is not a secure sandbox.`,
     },
   },
+
   {
     slug: 'gossip-cache',
     name: 'Go Gossip Cache',
@@ -64,6 +71,7 @@ export const projects: Project[] = [
       reflection: `I'd add a --dry-run flag to every command. Teams are cautious about new CLI tools and being able to preview what would happen without executing it would lower the adoption barrier significantly.`,
     },
   },
+
   {
     slug: 'web-crawler',
     name: 'Concurrent Web Crawler',
@@ -107,7 +115,8 @@ Both services are Dockerized and deployed separately on Render.`,
 It also reinforced that a useful backend project becomes much stronger when the frontend exposes the underlying behavior clearly instead of hiding it behind a single submit button.`,
     },
   },
-  //Ptolemy lang
+
+  // Ptolemy lang
   {
     slug: 'ptolemy-lang',
     name: 'Ptolemy Lang',
@@ -131,7 +140,7 @@ It also reinforced that a useful backend project becomes much stronger when the 
     },
   },
 
-  //DNS revsolver
+  // DNS resolver
   {
     slug: 'dns-resolver',
     name: 'DNS Resolver',
