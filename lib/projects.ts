@@ -51,6 +51,99 @@ export const projects: Project[] = [
   },
 
   {
+  slug: 'agora-ecommerce',
+  name: 'Agora — Full-Stack E-Commerce Platform',
+  description:
+    'A full-stack e-commerce platform built with Java Spring Boot and Next.js, featuring JWT authentication, product management, shopping carts, order processing, payment integration, shipment tracking, and an administrative dashboard.',
+  tagline:
+    'A production-deployed e-commerce platform powered by Java 21, Spring Boot, Next.js, and TypeScript — combining secure REST APIs, transactional order processing, inventory management, payment workflows, and shipment tracking.',
+  tag: 'Java',
+  tagColor: 'text-orange-400 bg-orange-400/10',
+  status: 'complete',
+  stack:
+    'Java 21 · Spring Boot 4 · Spring Security · JWT · MySQL · Hibernate · JPA · Flyway · Redis · Next.js · React · TypeScript · Tailwind CSS · Cloudinary · Swagger/OpenAPI · Maven · Render · Vercel',
+  concepts:
+    'REST API design · Layered architecture · JWT authentication · Role-based authorization · Database transactions · Inventory consistency · Payment processing · Order lifecycle management · Shipment tracking · Redis caching · Database migrations · Integration testing · Cloud deployment',
+  repo: 'https://github.com/joss12/agora-backend',
+  live: 'https://agora-web-olive.vercel.app',
+  content: {
+    problem: `Building an e-commerce application involves much more than displaying products and processing checkout requests. A reliable platform must coordinate authentication, inventory, shopping carts, payments, orders, and shipments while maintaining data consistency across multiple operations.
+
+    One of the main challenges is preventing inconsistent order states. For example, an order should not advance to processing without successful payment, inventory must be updated correctly when purchases occur, and cancellations must restore stock when appropriate.
+
+    I built Agora to address these challenges through a complete full-stack application, with a Java Spring Boot backend responsible for business rules, security, persistence, and transaction management, and a Next.js frontend providing the customer shopping experience and administrative tools.`,
+
+    priorArt: `Established e-commerce platforms such as Shopify, WooCommerce, and Magento provide comprehensive solutions for online stores. However, these platforms abstract away much of the underlying engineering involved in authentication, inventory management, payment processing, and order lifecycle coordination.
+
+    I wanted to build these capabilities directly rather than rely on a ready-made commerce engine.
+
+    Agora was designed as an independently developed application where I could implement and understand the complete workflow — from customer authentication and product discovery to checkout, administrative order processing, shipment creation, and delivery confirmation.
+
+    This approach allowed me to focus on backend architecture, database consistency, API security, and integration between independently deployed frontend and backend applications.`,
+
+    designDecisions: `I chose Java 21 and Spring Boot 4 for the backend because of their strong support for enterprise application development, dependency injection, security, transaction management, and relational persistence.
+
+    Spring Security and JWT provide authentication and authorization, allowing customer and administrative operations to be protected according to their access requirements.
+
+    MySQL was selected as the relational database, with Spring Data JPA and Hibernate handling persistence. Flyway manages versioned database migrations to keep schema changes organized and reproducible.
+
+    I incorporated Redis and Spring Cache for caching infrastructure and Cloudinary for product image storage, keeping media management separate from the application's relational database.
+
+    The frontend uses Next.js, React, TypeScript, and Tailwind CSS to deliver a responsive shopping experience and administrative dashboard.
+
+    I separated the frontend and backend into independently deployed applications, using Vercel for the frontend and Render for the Java API.
+
+    For payment handling, I implemented explicit payment states and persisted payment attempts. Demo payment simulation supports development and testing without requiring real financial transactions.
+
+    Order processing follows defined business rules: payment status determines whether an order can advance, while cancellation and refund handling coordinate order state with inventory restoration.
+
+    I also integrated Springdoc OpenAPI to document REST endpoints and used JUnit, Spring Boot Test, and Testcontainers to test backend workflows against realistic persistence behavior.`,
+
+    architecture: `Agora follows a layered client-server architecture with independently deployed frontend and backend applications.
+
+    Frontend — Next.js, React, and TypeScript provide product browsing, shopping cart interactions, checkout workflows, account functionality, and administrative interfaces.
+
+    API Layer — Spring Boot REST controllers receive HTTP requests, validate inputs, and expose endpoints for authentication, products, orders, payments, shipments, and administrative operations.
+
+    Security Layer — Spring Security and JWT protect authenticated routes and enforce authorization rules for sensitive operations.
+
+    Service Layer — Business services coordinate application workflows, including product management, inventory updates, order creation, payment handling, cancellation, and shipment processing.
+
+    Persistence Layer — Spring Data JPA and Hibernate manage entities and database operations against MySQL. Flyway handles database schema migrations.
+
+    Payment Workflow — Payment services track payment status and attempts. Successful payments authorize eligible order transitions, while failed payments prevent unauthorized processing. Cancellation logic handles refund states according to the payment method and available transaction information.
+
+    Shipment Workflow — Administrative users create shipments with carrier and tracking information. Shipment records track shipping and delivery states, with dedicated API operations for delivery confirmation.
+
+    Supporting Infrastructure — Redis provides caching capabilities, Cloudinary manages product images, and Spring Mail supports email-related functionality.
+
+    Testing — JUnit, Spring Boot Test, and Testcontainers support automated testing of business rules, persistence operations, payment behavior, and administrative workflows.
+
+    Deployment — The Spring Boot backend runs on Render, while the Next.js frontend is deployed on Vercel. Swagger/OpenAPI provides interactive API documentation.
+
+    Backend Repository: https://github.com/joss12/agora-backend
+
+    Live Application: https://agora-web-olive.vercel.app
+
+    API Documentation: https://agora-backend-qqkr.onrender.com/swagger-ui.html`,
+
+    reflection: `Agora strengthened my understanding of the engineering challenges involved in building a complete transactional web application.
+
+    The most important lesson was that implementing individual CRUD endpoints is relatively straightforward compared with coordinating business operations across authentication, inventory, payments, orders, and shipments.
+
+    Payment handling required particular attention because payment success, payment failure, order processing, cancellation, and refund states must remain consistent.
+
+    Integration testing also proved valuable. Testing real persistence behavior helped validate business rules that would be difficult to verify through isolated unit tests alone.
+
+    Separating the frontend and backend improved my experience with API contracts, authentication across applications, deployment configuration, and production debugging.
+
+    If I continued extending Agora, I would focus on payment webhook reconciliation, stronger idempotency guarantees for payment operations, improved observability, automated deployment pipelines, and more comprehensive end-to-end testing.
+
+    Agora represents a practical demonstration of my ability to design, develop, test, and deploy a full-stack application with a Java-based backend and a modern TypeScript frontend.`,
+  },
+},
+
+  {
     slug: 'gossip-cache',
     name: 'Go Gossip Cache',
     description:
