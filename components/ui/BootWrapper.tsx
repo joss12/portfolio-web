@@ -1,22 +1,11 @@
-'use client';
+import type { ReactNode } from 'react';
 
-import { useState } from 'react';
-import BootScreen from './BootScreen';
+interface BootWrapperProps {
+  children: ReactNode;
+}
 
-export default function BootWrapper({ children }: { children: React.ReactNode }) {
-    const [booted, setBooted] = useState(false);
-
-    return (
-        <>
-            {!booted && <BootScreen onComplete={() => setBooted(true)} />}
-            <div
-                style={{
-                    opacity: booted ? 1 : 0,
-                    transition: 'opacity 0.6s ease',
-                }}
-            >
-                {children}
-            </div>
-        </>
-    );
+export default function BootWrapper({
+  children,
+}: BootWrapperProps) {
+  return <>{children}</>;
 }
