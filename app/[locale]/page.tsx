@@ -21,11 +21,11 @@ import { projects } from '@/lib/projects';
 import AnimatedSkills from '@/components/ui/AnimatedSkills';
 import AnimatedProjects from '@/components/ui/AnimatedProjects';
 import OtherProjects from '@/components/ui/OtherProjects';
+import Services from '@/components/ui/Services';
 
 const content = {
   en: {
     availability: 'Available for new opportunities',
-
     role: 'Independent Software Developer',
 
     headline: 'Building software',
@@ -38,9 +38,7 @@ const content = {
     secondaryAction: 'Explore My Work',
 
     location: 'Based in South Korea',
-
     profileRole: 'Software Developer',
-
     expertiseLabel: 'Core expertise',
 
     capabilities: {
@@ -82,7 +80,6 @@ const content = {
 
   ko: {
     availability: '새로운 프로젝트 및 채용 기회 환영',
-
     role: '독립 소프트웨어 개발자',
 
     headline: '가치를 만드는',
@@ -95,9 +92,7 @@ const content = {
     secondaryAction: '프로젝트 보기',
 
     location: '대한민국 거주',
-
     profileRole: '소프트웨어 개발자',
-
     expertiseLabel: '핵심 전문 분야',
 
     capabilities: {
@@ -139,7 +134,6 @@ const content = {
 
   fr: {
     availability: 'Disponible pour de nouvelles opportunités',
-
     role: 'Développeur logiciel indépendant',
 
     headline: 'Créer des logiciels',
@@ -152,9 +146,7 @@ const content = {
     secondaryAction: 'Découvrir mes projets',
 
     location: 'Basé en Corée du Sud',
-
     profileRole: 'Développeur logiciel',
-
     expertiseLabel: 'Domaines d’expertise',
 
     capabilities: {
@@ -244,8 +236,6 @@ export default function Home() {
         id="home"
         className="relative isolate overflow-hidden"
       >
-        {/* Background decoration */}
-
         <div
           aria-hidden="true"
           className="
@@ -295,8 +285,7 @@ export default function Home() {
           className="
             site-container
             grid items-center gap-16
-            py-20
-            md:py-28
+            py-20 md:py-28
             lg:min-h-[680px]
             lg:grid-cols-[1.35fr_0.65fr]
             lg:gap-20
@@ -363,8 +352,6 @@ export default function Home() {
               {copy.description}
             </p>
 
-            {/* Call to action */}
-
             <div
               className="
                 mt-9 flex flex-wrap
@@ -389,8 +376,6 @@ export default function Home() {
                 <ArrowRight size={17} />
               </Link>
             </div>
-
-            {/* Location and GitHub */}
 
             <div
               className="
@@ -463,10 +448,7 @@ export default function Home() {
                   fill
                   priority
                   quality={90}
-                  sizes="
-                    (max-width: 768px) 90vw,
-                    360px
-                  "
+                  sizes="(max-width: 768px) 90vw, 360px"
                   className="object-cover object-top"
                 />
 
@@ -481,12 +463,7 @@ export default function Home() {
                   "
                 />
 
-                <div
-                  className="
-                    absolute inset-x-0 bottom-0
-                    p-6
-                  "
-                >
+                <div className="absolute inset-x-0 bottom-0 p-6">
                   <p
                     className="
                       text-2xl font-semibold
@@ -496,18 +473,11 @@ export default function Home() {
                     Eddy Mouity
                   </p>
 
-                  <p
-                    className="
-                      mt-1 text-sm
-                      text-slate-300
-                    "
-                  >
+                  <p className="mt-1 text-sm text-slate-300">
                     {copy.profileRole}
                   </p>
                 </div>
               </div>
-
-              {/* Technology tags */}
 
               <div className="px-3 pb-3 pt-5">
                 <p
@@ -546,7 +516,6 @@ export default function Home() {
       {/* Expertise strip */}
 
       <section
-        id="services"
         aria-label={copy.expertiseLabel}
         className="
           border-y border-border
@@ -605,11 +574,15 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Services */}
+
+      <Services />
+
       {/* Selected projects */}
 
       <section
         id="projects"
-        className="section-spacing"
+        className="section-spacing section-divider"
       >
         <div className="site-container">
           <div className="mb-12">
@@ -662,9 +635,7 @@ export default function Home() {
 
       <section
         id="skills"
-        className="
-          section-spacing section-divider
-        "
+        className="section-spacing section-divider"
       >
         <div className="site-container">
           <div className="mb-12">
@@ -744,9 +715,7 @@ export default function Home() {
 
       <section
         id="contact"
-        className="
-          section-spacing section-divider
-        "
+        className="section-spacing section-divider"
       >
         <div className="site-container">
           <div
