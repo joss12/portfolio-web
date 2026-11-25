@@ -1,5 +1,9 @@
 @import 'tailwindcss';
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* Dark theme */
+
 :root {
   color-scheme: dark;
 
@@ -26,11 +30,62 @@
   --border: #202a3a;
   --border-hover: #35445b;
 
+  --scrollbar-thumb: #293548;
+  --scrollbar-hover: #41516a;
+
+  --ambient-glow: rgba(59, 130, 246, 0.08);
+  --card-shadow: rgba(0, 0, 0, 0.2);
+
+  --hero-gradient-start: #60a5fa;
+  --hero-gradient-middle: #38bdf8;
+  --hero-gradient-end: #67e8f9;
+
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
   --radius-xl: 24px;
 }
+
+/* Titanium light theme */
+
+:root[data-theme='light'] {
+  color-scheme: light;
+
+  --background: #dce1e8;
+  --background-secondary: #d2d8e1;
+
+  --surface: #e7ebf0;
+  --surface-hover: #dce3eb;
+  --surface-elevated: #cbd4df;
+
+  --foreground: #18212f;
+  --text-secondary: #39485c;
+  --text-muted: #4e5e72;
+
+  --primary: #254b9b;
+  --primary-hover: #1d3d82;
+  --primary-light: #254b9b;
+
+  --accent: #285b80;
+  --success: #17634e;
+  --warning: #85530b;
+  --danger: #a62e35;
+
+  --border: #bcc6d3;
+  --border-hover: #95a4b8;
+
+  --scrollbar-thumb: #a4b0c0;
+  --scrollbar-hover: #8493a7;
+
+  --ambient-glow: rgba(37, 75, 155, 0.035);
+  --card-shadow: rgba(24, 33, 47, 0.12);
+
+  --hero-gradient-start: #203e82;
+  --hero-gradient-middle: #315b91;
+  --hero-gradient-end: #356b85;
+}
+
+/* Tailwind theme tokens */
 
 @theme inline {
   --color-background: var(--background);
@@ -69,6 +124,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 100px;
+  background-color: var(--background);
 }
 
 body {
@@ -80,7 +136,7 @@ body {
   background-image:
     radial-gradient(
       ellipse at 50% 0%,
-      rgba(59, 130, 246, 0.08),
+      var(--ambient-glow),
       transparent 50%
     );
 
@@ -94,6 +150,10 @@ body {
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  transition:
+    background-color 250ms ease,
+    color 250ms ease;
 }
 
 button {
@@ -133,6 +193,61 @@ button {
   color: #ffffff;
 }
 
+:root[data-theme='light'] ::selection {
+  background-color: rgba(37, 75, 155, 0.2);
+  color: #18212f;
+}
+
+/* Theme toggle */
+
+.theme-icon-sun {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+.theme-icon-moon {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0);
+}
+
+:root[data-theme='light'] .theme-icon-sun {
+  opacity: 0;
+  transform: rotate(90deg) scale(0);
+}
+
+:root[data-theme='light'] .theme-icon-moon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+/* Adaptive hero gradient */
+
+.hero-gradient {
+  background-image: linear-gradient(
+    100deg,
+    var(--hero-gradient-start),
+    var(--hero-gradient-middle),
+    var(--hero-gradient-end)
+  );
+
+  background-clip: text;
+  -webkit-background-clip: text;
+
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Photographic overlay */
+
+.profile-photo-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(8, 11, 18, 0.85) 0%,
+    rgba(8, 11, 18, 0.35) 22%,
+    transparent 52%
+  );
+}
+
 /* Scrollbar */
 
 ::-webkit-scrollbar {
@@ -145,12 +260,12 @@ button {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #293548;
+  background: var(--scrollbar-thumb);
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #41516a;
+  background: var(--scrollbar-hover);
 }
 
 /* Layout */
@@ -222,7 +337,7 @@ button {
   background: var(--surface-hover);
   border-color: var(--border-hover);
 
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 16px 40px var(--card-shadow);
 }
 
 /* Buttons */
@@ -254,7 +369,7 @@ button {
   background: var(--primary-hover);
   transform: translateY(-1px);
 
-  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.2);
+  box-shadow: 0 8px 24px var(--card-shadow);
 }
 
 .btn-secondary {
@@ -285,7 +400,8 @@ button {
 
   transition:
     border-color 180ms ease,
-    box-shadow 180ms ease;
+    box-shadow 180ms ease,
+    background-color 180ms ease;
 }
 
 .form-control::placeholder {
@@ -310,6 +426,10 @@ button {
 
   background: var(--success);
   box-shadow: 0 0 12px rgba(52, 211, 153, 0.4);
+}
+
+:root[data-theme='light'] .status-dot {
+  box-shadow: 0 0 8px rgba(23, 99, 78, 0.2);
 }
 
 /* Animations */
@@ -364,6 +484,8 @@ button {
   }
 }
 
+/* Accessibility */
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -372,4 +494,13 @@ button {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+
+/* Titanium project technology badges */
+
+:root[data-theme='light'] .light-project-tag {
+  color: #254b9b;
+  background-color: rgba(37, 75, 155, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(37, 75, 155, 0.15);
 }

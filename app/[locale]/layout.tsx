@@ -1,11 +1,30 @@
 import type { Metadata } from 'next';
+
 import { Geist, Geist_Mono } from 'next/font/google';
+
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
+
+import {
+  getMessages,
+  setRequestLocale,
+} from 'next-intl/server';
+
+import { notFound } from 'next/navigation';
 
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import ScrollToTop from '@/components/ui/ScrollToTop';
+import AnimatedBackground from '@/components/ui/AnimatedBackground';
+
+import {
+  SITE_URL,
+  SITE_NAME,
+  LOCALES,
+  type SiteLocale,
+  getSeoContent,
+  getPageMetadata,
+  getStructuredData,
+} from '@/lib/seo';
 
 import '../globals.css';
 
@@ -21,98 +40,18 @@ const geistMono = Geist_Mono({
   display: 'swap',
 });
 
-const siteUrl = 'https://www.eddymouity.dev';
+const themeScript = `
+  (function () {
+    try {
+      var storedTheme = localStorage.getItem('portfolio-theme');
 
-const siteTitle =
-  'Eddy Mouity — Independent Software Developer';
-
-const siteDescription =
-  'Independent software developer based in South Korea. Building custom web applications, e-commerce platforms, secure backend systems, APIs and digital solutions for businesses and startups.';
-
-export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-
-  title: {
-    default: siteTitle,
-    template: '%s · Eddy Mouity',
-  },
-
-  description: siteDescription,
-
-  applicationName: 'Eddy Mouity',
-
-  keywords: [
-    'Eddy Mouity',
-    'Independent Software Developer',
-    'Freelance Software Developer',
-    'Backend Developer',
-    'Full Stack Developer',
-    'Software Developer South Korea',
-    'Software Developer Gyeonggi-do',
-    'Custom Software Development',
-    'Web Application Development',
-    'E-Commerce Development',
-    'Backend Development',
-    'API Development',
-    'MVP Development',
-    'Business Software',
-    'Go Developer',
-    'Golang Developer',
-    'Java Developer',
-    'Spring Boot Developer',
-    'Node.js Developer',
-    'TypeScript Developer',
-    'React Developer',
-    'Next.js Developer',
-    '소프트웨어 개발자',
-    '백엔드 개발자',
-    '웹 개발자',
-    '프리랜서 개발자',
-    '웹 애플리케이션 개발',
-  ],
-
-  authors: [
-    {
-      name: 'Eddy Mouity',
-      url: siteUrl,
-    },
-  ],
-
-  creator: 'Eddy Mouity',
-
-  publisher: 'Eddy Mouity',
-
-  openGraph: {
-    type: 'website',
-    url: siteUrl,
-    title: siteTitle,
-    description: siteDescription,
-    siteName: 'Eddy Mouity',
-    locale: 'en_US',
-    alternateLocale: ['ko_KR', 'fr_FR'],
-  },
-
-  twitter: {
-    card: 'summary',
-    title: siteTitle,
-    description: siteDescription,
-  },
-
-  robots: {
-    index: true,
-    follow: true,
-
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-      'max-video-preview': -1,
-    },
-  },
-
-  category: 'Software Development',
-};
+      document.documentElement.dataset.theme =
+        storedTheme === 'light' ? 'light' : 'dark';
+    } catch (error) {
+      document.documentElement.dataset.theme = 'dark';
+    }
+  })();
+`;
 
 interface LocaleLayoutProps {
   children: React.ReactNode;
@@ -122,20 +61,109 @@ interface LocaleLayoutProps {
   }>;
 }
 
+function isSupportedLocale(
+  locale: string,
+): locale is SiteLocale {
+  return LOCALES.includes(locale as SiteLocale);
+}
+
+export function generateStaticParams() {
+  return LOCALES.map((locale) => ({
+    locale,
+  }));
+}
+
+export async function generateMetadata({
+  params,
+}: Pick<LocaleLayoutProps, 'params'>): Promise<Metadata> {
+  const { locale } = await params;
+
+  if (!isSupportedLocale(locale)) {
+    notFound();
+  }
+
+  const copy = getSeoContent(locale);
+
+  const pageMetadata = getPageMetadata(
+    locale,
+    'home',
+  );
+
+  return {
+    metadataBase: new URL(SITE_URL),
+
+    title: {
+      default: copy.home.title,
+      template: `%s · ${SITE_NAME}`,
+    },
+
+    description: copy.home.description,
+
+    applicationName: SITE_NAME,
+
+    keywords: pageMetadata.keywords,
+
+    authors: [
+      {
+        name: SITE_NAME,
+        url: SITE_URL,
+      },
+    ],
+
+    creator: SITE_NAME,
+
+    publisher: SITE_NAME,
+
+    openGraph: pageMetadata.openGraph,
+
+    twitter: pageMetadata.twitter,
+
+    robots: pageMetadata.robots,
+
+    category: 'Software Development',
+  };
+}
+
 export default async function LocaleLayout({
   children,
   params,
 }: LocaleLayoutProps) {
   const { locale } = await params;
 
-  const messages = await getMessages();
+  if (!isSupportedLocale(locale)) {
+    notFound();
+  }
+
+  setRequestLocale(locale);
+
+  const messages = await getMessages({
+    locale,
+  });
+
+  const structuredData =
+    getStructuredData(locale);
 
   return (
-    <html lang={locale}>
+    <html
+      lang={locale}
+      data-theme="dark"
+      suppressHydrationWarning
+    >
+      <head>
+        <script
+          id="portfolio-theme-init"
+          dangerouslySetInnerHTML={{
+            __html: themeScript,
+          }}
+        />
+      </head>
+
       <body
         className={`
           ${geistSans.variable}
           ${geistMono.variable}
+          relative
+          isolate
           min-h-screen
           bg-background
           font-sans
@@ -143,11 +171,23 @@ export default async function LocaleLayout({
           antialiased
         `}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(
+              structuredData,
+            ).replace(/</g, '\\u003c'),
+          }}
+        />
+
+        {/* Global animated background */}
+        <AnimatedBackground />
+
         <NextIntlClientProvider
           locale={locale}
           messages={messages}
         >
-          <div className="flex min-h-screen flex-col">
+          <div className="relative z-0 flex min-h-screen flex-col">
             <Navbar />
 
             <div className="flex flex-1 flex-col pt-14">
@@ -165,3 +205,4 @@ export default async function LocaleLayout({
     </html>
   );
 }
+

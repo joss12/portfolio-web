@@ -1,102 +1,425 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
-import { FileText, X, Download } from 'lucide-react';
+import {
+  useEffect,
+  useId,
+  useRef,
+  useState,
+} from 'react';
+
+import { useLocale } from 'next-intl';
+
+import {
+  FileText,
+  X,
+  ArrowUpRight,
+} from 'lucide-react';
 
 const documents = [
   {
-    label: 'Resume',
-    description: 'Backend Engineer — Go · TypeScript',
+    id: 'resume',
     file: '/resume/Eddy_CV_Real-1.pdf',
-    type: 'resume',
   },
   {
-    label: 'Scholar Certificate',
-    description: 'Academic scholarship certificate',
+    id: 'scholarship',
     file: '/resume/33333.pdf',
-    type: 'certificate',
   },
   {
-    label: 'Certificate of Completion',
-    description: 'Course completion certificate',
+    id: 'completion',
     file: '/resume/44444.pdf',
-    type: 'certificate',
   },
   {
-    label: 'IBM Back-end JavaScript Developer',
-    description: 'Coursera · IBM',
+    id: 'ibm',
     file: '/resume/Coursera DR0AMNIBD9VR.pdf',
-    type: 'certificate',
   },
-];
+] as const;
 
-export default function DocumentPicker({ label }: { label: string }) {
+const translations = {
+  en: {
+    title: 'Documents',
+    close: 'Close documents',
+    newTab: 'Opens in a new tab',
+
+    documents: {
+      resume: {
+        label: 'Résumé',
+        description:
+          'Backend Developer — Go · TypeScript',
+      },
+
+      scholarship: {
+        label: 'Scholar Certificate',
+        description:
+          'Academic scholarship certificate',
+      },
+
+      completion: {
+        label: 'Certificate of Completion',
+        description:
+          'Course completion certificate',
+      },
+
+      ibm: {
+        label: 'IBM Back-end JavaScript Developer',
+        description: 'Coursera · IBM',
+      },
+    },
+  },
+
+  ko: {
+    title: '문서',
+    close: '문서 목록 닫기',
+    newTab: '새 탭에서 열기',
+
+    documents: {
+      resume: {
+        label: '이력서',
+        description:
+          '백엔드 개발자 — Go · TypeScript',
+      },
+
+      scholarship: {
+        label: '장학 증명서',
+        description: '학업 장학 증명서',
+      },
+
+      completion: {
+        label: '수료증',
+        description: '교육 과정 수료증',
+      },
+
+      ibm: {
+        label: 'IBM 백엔드 JavaScript 개발자',
+        description: 'Coursera · IBM',
+      },
+    },
+  },
+
+  fr: {
+    title: 'Documents',
+    close: 'Fermer les documents',
+    newTab: 'Ouvre un nouvel onglet',
+
+    documents: {
+      resume: {
+        label: 'Curriculum vitae',
+        description:
+          'Développeur backend — Go · TypeScript',
+      },
+
+      scholarship: {
+        label: 'Attestation de bourse',
+        description:
+          'Attestation de bourse académique',
+      },
+
+      completion: {
+        label: 'Certificat de réussite',
+        description:
+          'Certificat de fin de formation',
+      },
+
+      ibm: {
+        label: 'IBM Back-end JavaScript Developer',
+        description: 'Coursera · IBM',
+      },
+    },
+  },
+} as const;
+
+type DocumentPickerProps = {
+  label: string;
+};
+
+export default function DocumentPicker({
+  label,
+}: DocumentPickerProps) {
+  const locale = useLocale();
+
+  const language =
+    locale === 'ko' || locale === 'fr'
+      ? locale
+      : 'en';
+
+  const copy = translations[language];
+
   const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+
+  const containerRef =
+    useRef<HTMLDivElement>(null);
+
+  const triggerRef =
+    useRef<HTMLButtonElement>(null);
+
+  const panelRef =
+    useRef<HTMLDivElement>(null);
+
+  const panelId = useId();
+  const headingId = useId();
+
+  function closePicker(restoreFocus = true) {
+    setOpen(false);
+
+    if (restoreFocus) {
+      triggerRef.current?.focus();
+    }
+  }
 
   useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
+    if (!open) return;
+
+    panelRef.current
+      ?.querySelector<HTMLElement>('a[href]')
+      ?.focus();
+
+    function handlePointerDown(
+      event: PointerEvent,
+    ) {
+      const target = event.target;
+
+      if (
+        target instanceof Node &&
+        containerRef.current &&
+        !containerRef.current.contains(target)
+      ) {
         setOpen(false);
       }
     }
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+
+    function handleKeyDown(
+      event: KeyboardEvent,
+    ) {
+      if (event.key !== 'Escape') return;
+
+      event.preventDefault();
+
+      setOpen(false);
+
+      triggerRef.current?.focus();
+    }
+
+    document.addEventListener(
+      'pointerdown',
+      handlePointerDown,
+    );
+
+    document.addEventListener(
+      'keydown',
+      handleKeyDown,
+    );
+
+    return () => {
+      document.removeEventListener(
+        'pointerdown',
+        handlePointerDown,
+      );
+
+      document.removeEventListener(
+        'keydown',
+        handleKeyDown,
+      );
+    };
+  }, [open]);
 
   return (
-    <div className="relative" ref={ref}>
+    <div
+      ref={containerRef}
+      className="relative"
+      onBlur={(event) => {
+        const nextTarget = event.relatedTarget;
+
+        if (
+          nextTarget instanceof Node &&
+          !event.currentTarget.contains(nextTarget)
+        ) {
+          setOpen(false);
+        }
+      }}
+    >
       <button
-        onClick={() => setOpen((v) => !v)}
-        className="rounded border border-neutral-700 px-3 py-1.5 font-mono text-xs text-neutral-300 transition-colors hover:border-cyan-500 hover:text-cyan-400"
+        ref={triggerRef}
+        type="button"
+        aria-expanded={open}
+        aria-controls={open ? panelId : undefined}
+        onClick={() => setOpen((value) => !value)}
+        className="
+          inline-flex h-9
+          items-center justify-center
+          gap-2 whitespace-nowrap
+          rounded-lg border border-border
+          bg-surface px-3
+          text-xs font-medium
+          text-text-secondary
+          transition-colors
+          hover:border-primary/40
+          hover:bg-surface-hover
+          hover:text-foreground
+          focus-visible:outline-2
+          focus-visible:outline-offset-4
+          focus-visible:outline-primary
+        "
       >
+        <FileText
+          size={14}
+          strokeWidth={1.8}
+          aria-hidden="true"
+        />
+
         {label}
       </button>
 
       {open && (
-        <div className="absolute top-10 right-0 z-50 w-72 overflow-hidden rounded-xl border border-neutral-800 bg-neutral-950 shadow-2xl">
+        <div
+          ref={panelRef}
+          id={panelId}
+          role="region"
+          aria-labelledby={headingId}
+          className="
+            fixed inset-x-4 bottom-4
+            z-[60]
+            max-h-[70dvh]
+            overflow-y-auto
+            rounded-xl
+            border border-border
+            bg-surface
+            shadow-2xl shadow-black/20
+            sm:absolute
+            sm:inset-x-auto
+            sm:top-full
+            sm:right-0
+            sm:bottom-auto
+            sm:mt-2
+            sm:w-80
+          "
+        >
           {/* Header */}
-          <div className="flex items-center justify-between border-b border-neutral-800 px-4 py-3">
-            <span className="font-mono text-xs font-semibold tracking-widest text-neutral-500 uppercase">
-              Documents
-            </span>
-            <button
-              onClick={() => setOpen(false)}
-              className="text-neutral-600 transition-colors hover:text-neutral-400"
+
+          <div
+            className="
+              flex items-center
+              justify-between gap-3
+              border-b border-border
+              px-4 py-2
+            "
+          >
+            <h2
+              id={headingId}
+              className="
+                font-mono
+                text-xs font-semibold
+                uppercase tracking-widest
+                text-text-muted
+              "
             >
-              <X size={14} />
+              {copy.title}
+            </h2>
+
+            <button
+              type="button"
+              aria-label={copy.close}
+              onClick={() => closePicker()}
+              className="
+                flex h-10 w-10 shrink-0
+                items-center justify-center
+                rounded-md
+                text-text-muted
+                transition-colors
+                hover:bg-surface-hover
+                hover:text-foreground
+                focus-visible:outline-2
+                focus-visible:outline-primary
+              "
+            >
+              <X
+                size={16}
+                aria-hidden="true"
+              />
             </button>
           </div>
 
           {/* Document list */}
-          <div className="flex flex-col py-2">
-            {documents.map((doc) => (
-              <a
-                key={doc.file}
-                href={doc.file}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setOpen(false)}
-                className="group flex items-center gap-3 px-4 py-3 transition-colors hover:bg-neutral-900"
-              >
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-neutral-800 bg-neutral-900 group-hover:border-cyan-500/30">
-                  <FileText size={14} className="text-cyan-400" />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-medium text-white">
-                    {doc.label}
-                  </p>
-                  <p className="truncate text-xs text-neutral-600">
-                    {doc.description}
-                  </p>
-                </div>
-                <Download
-                  size={13}
-                  className="shrink-0 text-neutral-700 transition-colors group-hover:text-cyan-400"
-                />
-              </a>
-            ))}
-          </div>
+
+          <ul className="flex flex-col gap-1 p-2">
+            {documents.map((document) => {
+              const content =
+                copy.documents[document.id];
+
+              return (
+                <li key={document.id}>
+                  <a
+                    href={document.file}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => closePicker()}
+                    className="
+                      group flex items-center
+                      gap-3 rounded-lg
+                      px-3 py-3
+                      transition-colors
+                      hover:bg-surface-hover
+                      focus-visible:outline-2
+                      focus-visible:outline-primary
+                    "
+                  >
+                    <div
+                      className="
+                        flex h-9 w-9 shrink-0
+                        items-center justify-center
+                        rounded-lg
+                        border border-border
+                        bg-primary/10
+                        group-hover:border-primary/30
+                      "
+                    >
+                      <FileText
+                        size={16}
+                        aria-hidden="true"
+                        className="text-primary-light"
+                      />
+                    </div>
+
+                    <div className="min-w-0 flex-1">
+                      <p
+                        className="
+                          break-words
+                          text-sm font-medium
+                          leading-snug
+                          text-foreground
+                        "
+                      >
+                        {content.label}
+                      </p>
+
+                      <p
+                        className="
+                          mt-1 break-words
+                          text-xs leading-relaxed
+                          text-text-muted
+                        "
+                      >
+                        {content.description}
+                      </p>
+
+                      <span className="sr-only">
+                        {copy.newTab}
+                      </span>
+                    </div>
+
+                    <ArrowUpRight
+                      size={15}
+                      aria-hidden="true"
+                      className="
+                        shrink-0
+                        text-text-muted
+                        transition-colors
+                        group-hover:text-primary-light
+                      "
+                    />
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       )}
     </div>
