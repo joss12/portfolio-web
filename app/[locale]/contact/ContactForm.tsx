@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from 'react';
 import { useLocale } from 'next-intl';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 import {
@@ -335,6 +336,7 @@ export default function ContactForm({
   initialService = '',
 }: ContactFormProps) {
   const locale = useLocale();
+  const router = useRouter();
 
   const language: SupportedLocale =
     locale === 'ko' || locale === 'fr'
@@ -360,84 +362,29 @@ export default function ContactForm({
 
   const isEmployment = service === 'employment';
 
+  // Original submission logic restored from f7ba371.
   async function handleSubmit(
     e: FormEvent<HTMLFormElement>,
   ) {
     e.preventDefault();
 
-    if (state === 'loading') return;
-
     setState('loading');
     setErrors({});
 
     const form = e.currentTarget;
-    const formData = new FormData(form);
 
-    const name = String(
-      formData.get('name') ?? '',
-    ).trim();
-
-    const email = String(
-      formData.get('email') ?? '',
-    ).trim();
-
-    const company = String(
-      formData.get('company') ?? '',
-    ).trim();
-
-    const serviceValue = validateService(
-      String(formData.get('service') ?? ''),
-    );
-
-    const message = String(
-      formData.get('message') ?? '',
-    ).trim();
-
-    const submittedService = services.find(
-      (item) => item.value === serviceValue,
-    );
-
-    if (
-      !name ||
-      !email ||
-      !message ||
-      !submittedService
-    ) {
-      setState('error');
-      return;
-    }
-
-    const employmentInquiry =
-      serviceValue === 'employment';
-
-    const inquiryDetails = [
-      employmentInquiry
-        ? 'EMPLOYMENT INQUIRY'
-        : 'PROJECT INQUIRY',
-
-      '',
-
-      `Name: ${name}`,
-      `Email: ${email}`,
-      `Company: ${company || 'Not specified'}`,
-      `Service: ${submittedService.en}`,
-      `Language: ${language.toUpperCase()}`,
-    ];
-
-    inquiryDetails.push(
-      '',
-      employmentInquiry
-        ? 'OPPORTUNITY DETAILS'
-        : 'PROJECT DETAILS',
-      '',
-      message,
-    );
-
-    // Preserve the existing backend contract.
     const body = {
-      name,
-      email,
-      message: inquiryDetails.join('\n'),
+      name: (
+        form.elements.namedItem('name') as HTMLInputElement
+      ).value,
+
+      email: (
+        form.elements.namedItem('email') as HTMLInputElement
+      ).value,
+
+      message: (
+        form.elements.namedItem('message') as HTMLTextAreaElement
+      ).value,
     };
 
     try {
@@ -462,17 +409,21 @@ export default function ContactForm({
       try {
         data = await res.json();
       } catch {
-        // The response is not JSON.
+        // Response is not JSON.
       }
 
       if (res.ok && data.success) {
+        setState('success');
+
         form.reset();
 
         setService(
           validateService(initialService),
         );
 
-        setState('success');
+        setTimeout(() => {
+          router.push(`/${locale}`);
+        }, 2000);
 
         return;
       }
@@ -950,7 +901,10 @@ export default function ContactForm({
 
                 <button
                   type="submit"
-                  disabled={state === 'loading'}
+                  disabled={
+                    state === 'loading' ||
+                    state === 'success'
+                  }
                   className="
                     btn-primary w-full
                     justify-center gap-3
