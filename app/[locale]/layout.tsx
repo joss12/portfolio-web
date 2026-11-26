@@ -15,6 +15,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import ScrollToTop from '@/components/ui/ScrollToTop';
 import AnimatedBackground from '@/components/ui/AnimatedBackground';
+import BootWrapper from '@/components/ui/BootWrapper';
 
 import {
   SITE_URL,
@@ -187,22 +188,23 @@ export default async function LocaleLayout({
           locale={locale}
           messages={messages}
         >
-          <div className="relative z-0 flex min-h-screen flex-col">
-            <Navbar />
+          <BootWrapper>
+            <div className="relative z-0 flex min-h-screen flex-col">
+              <Navbar />
 
-            <div className="flex flex-1 flex-col pt-14">
-              <div className="flex-1">
-                {children}
+              <div className="flex flex-1 flex-col pt-14">
+                <div className="flex-1">
+                  {children}
+                </div>
+
+                <Footer />
               </div>
-
-              <Footer />
             </div>
-          </div>
 
-          <ScrollToTop />
+            <ScrollToTop />
+          </BootWrapper>
         </NextIntlClientProvider>
       </body>
     </html>
   );
 }
-
