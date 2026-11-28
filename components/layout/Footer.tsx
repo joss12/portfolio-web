@@ -14,8 +14,6 @@ import {
   BriefcaseBusiness,
 } from 'lucide-react';
 
-import DocumentPicker from '@/components/ui/DocumentPicker';
-
 const content = {
   en: {
     role: 'Independent Software Developer',
@@ -39,8 +37,6 @@ const content = {
     startProject: 'Start a project',
 
     employment: 'Employment inquiries',
-
-    resume: 'Download résumé',
 
     availability: 'Available for new opportunities',
 
@@ -130,8 +126,6 @@ const content = {
 
     employment: '채용 및 협업 문의',
 
-    resume: '이력서 다운로드',
-
     availability: '새로운 프로젝트 및 채용 기회 환영',
 
     copyright: '모든 권리 보유.',
@@ -219,8 +213,6 @@ const content = {
     startProject: 'Démarrer un projet',
 
     employment: 'Opportunités professionnelles',
-
-    resume: 'Télécharger mon CV',
 
     availability: 'Disponible pour de nouvelles opportunités',
 
@@ -574,10 +566,6 @@ export default function Footer() {
                   className="shrink-0"
                 />
               </Link>
-
-              <div className="mt-1">
-                <DocumentPicker label={copy.resume} />
-              </div>
             </div>
           </div>
         </div>
